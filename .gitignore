@@ -4,6 +4,9 @@ node_modules/
 # Dist directory
 dist/
 
+# Temp directory
+.tmp/
+
 # Build directory
 build/
 
