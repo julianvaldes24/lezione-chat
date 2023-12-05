@@ -16,3 +16,6 @@ import './template/modal';
 import './template/scrollable';
 import './template/horizontal-scroll';
 import './template/themeswitcher';
+
+// Login
+import './main/login';
