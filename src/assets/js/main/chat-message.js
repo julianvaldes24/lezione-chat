@@ -1,3 +1,25 @@
+import MarkdownIt from 'markdown-it';
+import hljs from 'highlight.js';
+import markdownItHighlightjs from 'markdown-it-highlightjs';
+
+// Inicializar markdown-it con el plugin highlight.js
+const md = new MarkdownIt({
+  highlight: function (str, lang) {
+    if (lang && hljs.getLanguage(lang)) {
+      try {
+        return '<pre class="hljs"><code>' +
+               hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
+               '</code></pre>';
+      } catch (_) {}
+    }
+
+    return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
+  }
+});
+
+md.use(markdownItHighlightjs);
+
+
 document.addEventListener('DOMContentLoaded', function () {
     const urlParams = new URLSearchParams(window.location.search);
     const conversationId = urlParams.get('conversationId');
@@ -44,7 +66,10 @@ function renderChatMessages(data) {
 
 function createMessageElement(message) {
     let messageDiv = document.createElement('div');
-    messageDiv.className = message.sender === 'AI' ? 'message message-out' : 'message';
+    messageDiv.className = message.sender === 'AI' ? 'message' : 'message message-out';
+    console.log(message.sender, messageDiv.className);
+
+    let renderedText = md.render(message.text);
     messageDiv.innerHTML = `
         <a href="#" data-bs-toggle="modal" data-bs-target="#modal-user-profile" class="avatar avatar-responsive">
             <img class="avatar-img" src="assets/img/avatars/omnissiah_icon.png" alt="">
@@ -53,7 +78,7 @@ function createMessageElement(message) {
             <div class="message-body">
                 <div class="message-content">
                     <div class="message-text">
-                        <p>${message.text}</p>
+                        ${renderedText}
                     </div>
                 </div>
             </div>
