@@ -2,8 +2,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const apiUrl = 'http://54.242.3.57:8000/api/v1/conversation/';
     const authToken = localStorage.getItem('accessToken');
 
-    if (!authToken) {
-        console.error('No se encontró el token de autenticación.');
+    if (!authToken && window.location.pathname !== '/signin.html') {
+        console.error('No se encontró el token de autenticación. Redirigiendo al inicio de sesión...');
+        window.location.href = '/signin.html';
         return;
     }
 
