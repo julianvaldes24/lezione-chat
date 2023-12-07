@@ -36,6 +36,7 @@ $grays: (
 // fusv-enable
 
 // scss-docs-start color-variables
+$omnissiahPrimary: #00B5FD !default;
 $blue:    #2787F5 !default;
 $indigo:  #6610f2 !default;
 $purple:  #6f42c1 !default;
@@ -68,7 +69,7 @@ $colors: (
 // scss-docs-end colors-map
 
 // scss-docs-start theme-color-variables
-$primary:       $blue !default;
+$primary:       $omnissiahPrimary !default;
 $secondary:     darken($gray-300, 5%) !default;
 $success:       $green !default;
 $info:          $cyan !default;
@@ -80,7 +81,7 @@ $dark:          $gray-300 !default;
 
 // scss-docs-start theme-colors-map
 $theme-colors: (
-  "primary":    $primary,
+  "primary":    $omnissiahPrimary,
   "secondary":  $secondary,
   "success":    $success,
   "info":       $info,
@@ -444,7 +445,7 @@ $utilities-bg-colors: map-loop($utilities-colors, rgba-css-var, "$key", "bg") !d
 //
 // Style anchor elements.
 
-$link-color:                              $primary !default;
+$link-color:                              $omnissiahPrimary !default;
 $link-decoration:                         underline !default;
 $link-shade-percentage:                   20% !default;
 $link-hover-color:                        shift-color($link-color, $link-shade-percentage) !default;
@@ -544,7 +545,7 @@ $box-shadow-inset:            inset 0 1px 2px rgba($black, .075) !default;
 // scss-docs-end box-shadow-variables
 
 $component-active-color:      $white !default;
-$component-active-bg:         $primary !default;
+$component-active-bg:         $omnissiahPrimary !default;
 
 // scss-docs-start caret-variables
 $caret-width:                 .3em !default;
@@ -726,7 +727,7 @@ $table-bg-scale:              -80% !default;
 
 // scss-docs-start table-loop
 $table-variants: (
-  "primary":    $primary,
+  "primary":    $omnissiahPrimary,
   "secondary":  $secondary,
   "success":    $success,
   "info":       $info,
@@ -1093,7 +1094,7 @@ $nav-tabs-border-color:             $border-color !default;
 $nav-tabs-border-width:             $border-width !default;
 $nav-tabs-border-radius:            $border-radius !default;
 $nav-tabs-link-hover-border-color:  $nav-tabs-border-color $nav-tabs-border-color $nav-tabs-border-color !default;
-$nav-tabs-link-active-color:        $primary !default;
+$nav-tabs-link-active-color:        $omnissiahPrimary !default;
 $nav-tabs-link-active-bg:           transparent !default;
 $nav-tabs-link-active-border-color: $nav-tabs-border-color $nav-tabs-border-color $body-bg !default;
 
@@ -1135,8 +1136,8 @@ $navbar-dark-toggler-icon-bg:       url("data:image/svg+xml,<svg xmlns='http://w
 $navbar-dark-toggler-border-color:  transparent !default;
 
 $navbar-light-color:                $body-color !default;
-$navbar-light-hover-color:          $primary !default;
-$navbar-light-active-color:         $primary !default;
+$navbar-light-hover-color:          $omnissiahPrimary !default;
+$navbar-light-active-color:         $omnissiahPrimary !default;
 $navbar-light-disabled-color:       rgba($body-color, .3) !default;
 $navbar-light-toggler-icon-bg:      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-light-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>") !default;
 $navbar-light-toggler-border-color: transparent !default;
@@ -1466,7 +1467,7 @@ $progress-bg:                       $gray-400 !default;
 $progress-border-radius:            $border-radius !default;
 $progress-box-shadow:               $box-shadow-inset !default;
 $progress-bar-color:                $white !default;
-$progress-bar-bg:                   $primary !default;
+$progress-bar-bg:                   $omnissiahPrimary !default;
 $progress-bar-animation-timing:     1s linear infinite !default;
 $progress-bar-transition:           width .6s ease !default;
 // scss-docs-end progress-variables
@@ -1665,7 +1666,7 @@ $avatar-sizes: (
   xs: 26px
 ) !default;
 
-$avatar-bg:                         $primary !default;
+$avatar-bg:                         $omnissiahPrimary !default;
 $avatar-bg-online:                  $warning !default;
 $avatar-bg-offline:                 $gray-500 !default;
 
@@ -1690,7 +1691,7 @@ $badge-xs-padding-x:                $badge-padding-x * 0.75 !default;
 // Message
 
 $message-bg:                        $gray-200 !default;
-$message-bg-outgoing:               $primary !default;
+$message-bg-outgoing:               $omnissiahPrimary !default;
 $message-color:                     $body-color !default;
 $message-border-radius:             $border-radius !default;
 $message-padding-x:                 1.25rem !default;
