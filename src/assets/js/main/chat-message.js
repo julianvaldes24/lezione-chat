@@ -157,8 +157,8 @@ function addMessageAndScroll(messageData) {
 }
 
 function scrollToBottom() {
-    console.log("Scroll")
-    const chatBody = document.querySelector('.chat-body-inner');
+    console.log("Scroll");
+    const chatBody = document.querySelector('.chat-body');
     // Usar setTimeout para asegurarse de que el DOM se ha actualizado con el nuevo mensaje
     setTimeout(() => {
         chatBody.scrollTop = chatBody.scrollHeight;
