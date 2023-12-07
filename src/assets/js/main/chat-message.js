@@ -134,7 +134,7 @@ function createMessageElement(message) {
     if (message.sender === 'AI') {
         avatarHTML = `
             <a href="#" data-bs-toggle="modal" data-bs-target="#modal-user-profile" class="avatar avatar-responsive">
-                <img class="avatar-img" src="assets/img/avatars/omnissiah_icon.png" alt="">
+                <img class="avatar-img" src="assets/img/avatars/omnissiah_icon.gif" alt="">
             </a>`;
     }
 
