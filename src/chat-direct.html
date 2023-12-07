@@ -55,45 +55,7 @@
                         <div class="chat-body hide-scrollbar flex-1 h-100">
                             <div class="chat-body-inner">
                                 <div class="py-6 py-lg-12">
-                                    <!-- Message -->
-                                    <div class="message message-out">
-                                        <div class="message-inner">
-                                            <div class="message-body">
-                                                <div class="message-content">
-                                                    <div class="message-text">
-                                                        <p>¡Soy un programador en una emocionante aventura en busca de sabiduría, mi querido Dios de la tecnología!</p>
-                                                    </div>
-
-                                                    <!-- Dropdown -->
-                                                    <div class="message-action">
-                                                        @@include("partials/components/message-dropdown.html")
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="message-footer">
-                                                <span class="extra-small text-muted">08:45 PM</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Message -->
-                                    <div class="message">
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#modal-user-profile" class="avatar avatar-responsive">
-                                            <img class="avatar-img" src="assets/img/avatars/omnissiah_icon.png" alt="">
-                                        </a>
-
-                                        <div class="message-inner">
-                                            <div class="message-body">
-                                                <div class="message-content">
-                                                    <div class="message-text">
-                                                        <p>¡El Omnissiah está a punto de iluminarme con su luz de conocimiento infinito!<span class='typing-dots'><span>.</span><span>.</span><span>.</span></span></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                    
                                 </div>
                             </div>
                         </div>
@@ -107,7 +69,7 @@
                             <!-- Chat: Files -->
 
                             <!-- Chat: Form -->
-                            <form class="chat-form rounded-pill bg-dark" data-emoji-form="">
+                            <form class="chat-form rounded-pill bg-dark" data-emoji-form="" id="question_id">
                                 <div class="row align-items-center gx-0">
                                     <div class="col-auto">
                                         <a href="#" class="btn btn-icon btn-link text-body rounded-circle" disabled id="dz-btn">
@@ -128,7 +90,7 @@
                                     </div>
 
                                     <div class="col-auto">
-                                        <button class="btn btn-icon btn-primary rounded-circle ms-5">
+                                        <button class="btn btn-icon btn-primary rounded-circle ms-5" type="submit">
                                             @@include("assets/img/icons/send.svg")
                                         </button>
                                     </div>
