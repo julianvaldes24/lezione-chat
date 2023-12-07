@@ -19,3 +19,7 @@ import './template/themeswitcher';
 
 // Login
 import './main/login';
+
+// Chat
+import './main/sidebar-chat';
+import './main/chat-message';

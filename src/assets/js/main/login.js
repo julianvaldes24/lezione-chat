@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
             var email = document.getElementById('signin-email').value;
             var password = document.getElementById('signin-password').value;
 
-            fetch('http://localhost:8000/api/token/', {
+            fetch('http://54.242.3.57:8000/api/token/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
