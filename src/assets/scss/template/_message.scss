@@ -118,17 +118,6 @@
     max-width: 100%;
     min-width: 0;
     flex: 1;
-
-    @include media-breakpoint-up(lg) {
-        max-width: 70%;
-    }
-
-    @include media-breakpoint-up(xl) {
-        max-width: 50%;
-    }
-
-    @include media-breakpoint-up(xxl) {
-        max-width: 45%;
-    }
+    max-width: 90%;
 }
 
