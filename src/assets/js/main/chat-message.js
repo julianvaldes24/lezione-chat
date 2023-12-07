@@ -130,10 +130,16 @@ function createMessageElement(message) {
     let messageDate = new Date(message.created_at);
     let formattedTime = messageDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
+    let avatarHTML = '';
+    if (message.sender === 'AI') {
+        avatarHTML = `
+            <a href="#" data-bs-toggle="modal" data-bs-target="#modal-user-profile" class="avatar avatar-responsive">
+                <img class="avatar-img" src="assets/img/avatars/omnissiah_icon.png" alt="">
+            </a>`;
+    }
+
     messageDiv.innerHTML = `
-        <a href="#" data-bs-toggle="modal" data-bs-target="#modal-user-profile" class="avatar avatar-responsive">
-            <img class="avatar-img" src="assets/img/avatars/omnissiah_icon.png" alt="">
-        </a>
+        ${avatarHTML}
         <div class="message-inner">
             <div class="message-body">
                 <div class="message-content">
@@ -148,6 +154,7 @@ function createMessageElement(message) {
         </div>`;
     return messageDiv;
 }
+
 
 function addMessageAndScroll(messageData) {
     const chatBody = document.querySelector('.chat-body-inner');
