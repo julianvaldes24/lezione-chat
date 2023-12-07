@@ -37,7 +37,7 @@
                         <div class="profile">
                             <div class="profile-img text-primary rounded-top">
                                 @@include("../../assets/img/core/card-header.svg")
-                                
+
                             </div>
 
                             <div class="profile-body p-0">
@@ -46,7 +46,8 @@
                                         @@include("../../assets/img/icons/image.svg")
                                     </span>
 
-                                    <div class="badge badge-lg badge-circle bg-primary border-outline position-absolute bottom-0 end-0">
+                                    <div
+                                        class="badge badge-lg badge-circle bg-primary border-outline position-absolute bottom-0 end-0">
                                         @@include("../../assets/img/icons/plus.svg")
                                     </div>
 
@@ -60,24 +61,32 @@
                             <form autocomplete="off">
                                 <div class="row gy-6">
                                     <div class="col-12">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control" id="floatingInput" placeholder="Enter a chat name">
-                                            <label for="floatingInput">Enter group name</label>
-                                        </div>
+                                        <select class="form-select form-select-lg mb-3"
+                                            aria-label=".form-select-lg example">
+                                            <option selected>Select a Team</option>
+                                            <option value="solutions">Solutions</option>
+                                            <option value="false">Coming soon</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <select class="form-select form-select-lg mb-3"
+                                            aria-label=".form-select-lg example">
+                                            <option selected>Select a Repo</option>
+                                            <option value="saas-ms-user">saas-ms-user</option>
+                                            <option value="false">Coming soon</option>
+                                        </select>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <textarea class="form-control" placeholder="Description" id="floatingTextarea" rows="8" data-autosize="true" style="min-height: 100px;"></textarea>
-                                            <label for="floatingTextarea">What's your purpose?</label>
+                                            <textarea class="form-control" placeholder="Description"
+                                                id="floatingTextarea" rows="8" data-autosize="true"
+                                                style="min-height: 100px;"></textarea>
+                                            <label for="floatingTextarea">Your question?</label>
                                         </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
-                    </div>
-
-                    <div class="d-flex align-items-center mt-4 px-6">
-                        <small class="text-muted me-auto">Enter chat name and add an optional photo.</small>
                     </div>
 
                     <!-- Options -->
@@ -95,12 +104,12 @@
                                         </div>
                                     </div>
                                     <div class="col">
-                                        <h5>Make Private</h5>
-                                        <p>Can only be viewed by invites</p>
+                                        <h5>Memory Chat</h5>
+                                        <p>Memory Chat, More context</p>
                                     </div>
                                     <div class="col-auto align-self-center">
                                         <div class="form-check form-switch ps-0">
-                                            <input class="form-check-input" type="checkbox" id="new-chat-options-1">
+                                            <input class="form-check-input" type="checkbox" id="new-chat-options-1" checked>
                                             <label class="form-check-label" for="new-chat-options-1"></label>
                                         </div>
                                     </div>
@@ -118,7 +127,8 @@
                         </div>
 
                         @@loop("../components/friend-checkbox.html", [
-                            { "id": "1", "name": "Bill Marrow", "abbr": "", "avatar": "assets/img/avatars/6.jpg", "status": "last seen 3 days ago", "online": "" }
+                        { "id": "1", "name": "Bill Marrow", "abbr": "", "avatar": "assets/img/avatars/6.jpg", "status":
+                        "last seen 3 days ago", "online": "" }
                         ])
 
                         <div class="my-5">
@@ -126,8 +136,10 @@
                         </div>
 
                         @@loop("../components/friend-checkbox.html", [
-                            { "id": "2", "name": "Damian Binder", "abbr": "", "avatar": "assets/img/avatars/5.jpg", "status": "last seen within a week", "online": "" },
-                            { "id": "3", "name": "Don Knight", "abbr": "D", "avatar": "", "status": "online", "online": "avatar-online" }
+                        { "id": "2", "name": "Damian Binder", "abbr": "", "avatar": "assets/img/avatars/5.jpg",
+                        "status": "last seen within a week", "online": "" },
+                        { "id": "3", "name": "Don Knight", "abbr": "D", "avatar": "", "status": "online", "online":
+                        "avatar-online" }
                         ])
 
                         <div class="my-5">
@@ -135,7 +147,8 @@
                         </div>
 
                         @@loop("../components/friend-checkbox.html", [
-                            { "id": "4", "name": "Elise Dennis", "abbr": "", "avatar": "assets/img/avatars/8.jpg", "status": "online", "online": "avatar-online" }
+                        { "id": "4", "name": "Elise Dennis", "abbr": "", "avatar": "assets/img/avatars/8.jpg", "status":
+                        "online", "online": "avatar-online" }
                         ])
 
                         <div class="my-5">
@@ -143,8 +156,10 @@
                         </div>
 
                         @@loop("../components/friend-checkbox.html", [
-                            { "id": "6", "name": "Marshall Wallaker", "abbr": "M", "avatar": "", "status": "last seen within a month", "online": "" },
-                            { "id": "5", "name": "Mila White", "abbr": "", "avatar": "assets/img/avatars/11.jpg", "status": "last seen a long time ago", "online": "" }
+                        { "id": "6", "name": "Marshall Wallaker", "abbr": "M", "avatar": "", "status": "last seen within
+                        a month", "online": "" },
+                        { "id": "5", "name": "Mila White", "abbr": "", "avatar": "assets/img/avatars/11.jpg", "status":
+                        "last seen a long time ago", "online": "" }
                         ])
 
                         <div class="my-5">
@@ -152,7 +167,8 @@
                         </div>
 
                         @@loop("../components/friend-checkbox.html", [
-                            { "id": "7", "name": "Ollie Chandler", "abbr": "O", "avatar": "", "status": "online", "online": "avatar-online" }
+                        { "id": "7", "name": "Ollie Chandler", "abbr": "O", "avatar": "", "status": "online", "online":
+                        "avatar-online" }
                         ])
 
                         <div class="my-5">
@@ -160,8 +176,10 @@
                         </div>
 
                         @@loop("../components/friend-checkbox.html", [
-                            { "id": "8", "name": "Warren White", "abbr": "", "avatar": "assets/img/avatars/4.jpg", "status": "last seen recently", "online": "" },
-                            { "id": "9", "name": "William Wright", "abbr": "", "avatar": "assets/img/avatars/7.jpg", "status": "online", "online": "avatar-online" }
+                        { "id": "8", "name": "Warren White", "abbr": "", "avatar": "assets/img/avatars/4.jpg", "status":
+                        "last seen recently", "online": "" },
+                        { "id": "9", "name": "William Wright", "abbr": "", "avatar": "assets/img/avatars/7.jpg",
+                        "status": "online", "online": "avatar-online" }
                         ])
                     </nav>
                 </div>

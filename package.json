@@ -16,6 +16,7 @@
     "highlight.js": "^11.9.0",
     "markdown-it": "^13.0.2",
     "markdown-it-highlightjs": "^4.0.1",
+    "select2": "^4.1.0-rc.0",
     "zoom-vanilla.js": "^2.0.6"
   },
   "devDependencies": {
