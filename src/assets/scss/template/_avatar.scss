@@ -40,6 +40,43 @@
     height: 200px !important;
     background-size: cover !important;
 }
+.star-rating {
+    display: inline-flex;
+    flex-direction: row-reverse; /* Coloca la última estrella primero visualmente */
+    justify-content: flex-end; /* Alinea las estrellas al final del contenedor */
+  }
+  
+  .star-rating .star {
+    cursor: pointer;
+    color: #ccc; /* Color de las estrellas no seleccionadas */
+    margin-left: 5px; /* Espacio entre las estrellas */
+    transition: color 0.2s; /* Transición suave para el cambio de color */
+  }
+  
+  .star-rating .star:hover,
+  .star-rating .star:hover ~ .star {
+    color: #f5a623; /* Color de las estrellas al pasar el mouse */
+  }
+  .star-rating .select-star,
+  .star-rating .select-star ~ .star {
+    color: #f5a623; 
+  }
+  
+  
+// .star-rating {
+//     font-size: 0;
+// }
+ 
+// .star-rating .star {
+//     font-size: 1.5rem;
+//     cursor: pointer;
+//     color: #ccc; /* Color de las estrellas no seleccionadas */
+// }
+ 
+//  .star-rating .star:hover,
+//  .star-rating .star:hover ~ .star {
+//     color: #f5a623; /* Color de las estrellas al pasar el mouse */
+// }
 //
 // Sizes
 //

@@ -116,26 +116,38 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function renderChatMessages(data) {
     const chatBody = document.querySelector('.chat-body-inner');
-    data.results.slice().reverse().forEach(message => {
+    data.results.slice().reverse().forEach((message, index, array) => {
         let messageElement = createMessageElement(message);
+        // Pasar true si es el último mensaje
+        starEvents(messageElement, index === array.length - 1);
         chatBody.appendChild(messageElement);
     });
 }
 
 function createMessageElement(message) {
     let messageDiv = document.createElement('div');
-    messageDiv.className = message.sender === 'AI' ? 'message' : 'message message-out';
+    messageDiv.className = message.sender === 'AI' ? 'message message-in' : 'message message-out';
 
     let renderedText = md.render(message.text);
     let messageDate = new Date(message.created_at);
     let formattedTime = messageDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
     let avatarHTML = '';
+    let starRating = '';
     if (message.sender === 'AI') {
         avatarHTML = `
             <a href="#" data-bs-toggle="modal" data-bs-target="#modal-user-profile" class="avatar avatar-responsive">
                 <img class="avatar-img" src="assets/img/avatars/omnissiah_icon.gif" alt="">
             </a>`;
+        starRating = `
+            <div class="star-rating">
+                <span class="star" data-value="5">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="1">&#9733;</span>
+            </div>`;
+           
     }
 
     messageDiv.innerHTML = `
@@ -145,20 +157,45 @@ function createMessageElement(message) {
                 <div class="message-content">
                     <div class="message-text">
                         ${renderedText}
+                        ${starRating}
                     </div>
                 </div>
+                
             </div>
             <div class="message-footer">
                 <span class="extra-small text-muted">${formattedTime}</span>
+                
             </div>
-        </div>`;
+        </div>
+    `;
+    starEvents(messageDiv);
     return messageDiv;
 }
-
+function starEvents(messageElement, isLastMessage) {
+    let stars = messageElement.querySelectorAll('.star-rating .star');
+    if (isLastMessage) {
+        stars.forEach(function (star) {
+            star.style.pointerEvents = 'auto';
+            star.addEventListener('click', function () {
+                let rating = star.getAttribute('data-value');
+                star.classList.add('select-star');
+                stars.forEach(function (starNoHover) {
+                    starNoHover.style.pointerEvents = 'none';
+                });
+                console.log("calificacion", rating);
+            });
+        });
+    } else {
+        stars.forEach(function (star) {
+            star.style.pointerEvents = 'none'; 
+        });
+    }
+}
 
 function addMessageAndScroll(messageData) {
     const chatBody = document.querySelector('.chat-body-inner');
     const messageElement = createMessageElement(messageData);
+    starEvents(messageDiv);
     chatBody.appendChild(messageElement);
     scrollToBottom();
 }
