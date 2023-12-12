@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     startChatButton.addEventListener('click', function () {
         // Disparar la acción de envío del formulario
         form.dispatchEvent(new Event('submit', { cancelable: true }));
+        document.getElementById('loader').classList.remove('d-none');
     });
 
     form.addEventListener('submit', function (e) {
