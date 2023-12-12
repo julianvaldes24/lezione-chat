@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     localStorage.setItem('accessToken', data.access);
                     localStorage.setItem('refreshToken', data.refresh);
                     localStorage.setItem('name', payload.name);
+                    localStorage.setItem('email', payload.email);
                     localStorage.setItem('userId', payload.user_id);
                     localStorage.setItem('exp', payload.exp);
 
