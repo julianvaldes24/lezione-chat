@@ -1,5 +1,8 @@
+//Url base de la api
+import { urlBaseEndpoint } from './vars.js';
+
 document.addEventListener('DOMContentLoaded', function () {
-    const apiUrl = 'https://api-omnissiah.omni.pro/api/v1/conversation/';
+    const apiUrl = urlBaseEndpoint + 'api/v1/conversation/';
     const authToken = localStorage.getItem('accessToken');
 
     if (!authToken && window.location.pathname !== '/signin.html') {

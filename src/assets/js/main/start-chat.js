@@ -1,3 +1,6 @@
+//Url base de la api
+import { urlBaseEndpoint } from './vars.js';
+
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('new_question_id');
     const startChatButton = document.getElementById('start-chat-button');
@@ -39,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         // Hacer la solicitud POST a la API
-        fetch(`https://api-omnissiah.omni.pro/api/v1/conversation/00000000-0000-0000-0000-000000000000/message/`, {
+        fetch(urlBaseEndpoint + `api/v1/conversation/00000000-0000-0000-0000-000000000000/message/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -56,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(data => {
             console.log('Success:', data);
             const conversationId = data.conversation.conversation_id; // Obtener el ID de la conversación
-            window.location.href = `http://localhost:3000/chat-direct.html?conversationId=${conversationId}`; // Redirigir
+            window.location.href = `/chat-direct.html?conversationId=${conversationId}`; // Redirigir
         })
         .catch(error => {
             console.error('Error:', error);

@@ -1,3 +1,6 @@
+//Url base de la api
+import { urlBaseEndpoint } from './vars.js';
+
 // login.js
 document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('login-form');
@@ -15,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             try {
-                const response = await fetch('https://api-omnissiah.omni.pro/api/token/', {
+                const response = await fetch(urlBaseEndpoint + 'api/token/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
