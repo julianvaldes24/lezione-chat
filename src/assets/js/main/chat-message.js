@@ -1,6 +1,10 @@
+//Imports para el markdown del chat
 import MarkdownIt from 'markdown-it';
 import hljs from 'highlight.js';
 import markdownItHighlightjs from 'markdown-it-highlightjs';
+
+//Url base de la api
+import { urlBaseEndpoint } from './vars.js';
 
 // Inicializar markdown-it con el plugin highlight.js
 const md = new MarkdownIt({
@@ -30,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
-    const apiUrl = `https://api-omnissiah.omni.pro/api/v1/conversation/${conversationId}/message/`;
+    const apiUrl = urlBaseEndpoint + `api/v1/conversation/${conversationId}/message/`;
     const authToken = localStorage.getItem('accessToken');
 
     fetch(apiUrl, {
@@ -98,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        fetch(`https://api-omnissiah.omni.pro/api/v1/conversation/${conversationId}/message/`, {
+        fetch(urlBaseEndpoint + `api/v1/conversation/${conversationId}/message/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -203,7 +207,7 @@ function starEvents(messageElement, isLastMessage, message) {
 }
 
 function sendRating(messageId, conversationId, rating) {
-    const ratingUrl = `https://api-omnissiah.omni.pro/api/v1/conversation/${conversationId}/message/${messageId}/rating/`;
+    const ratingUrl = urlBaseEndpoint + `api/v1/conversation/${conversationId}/message/${messageId}/rating/`;
     const authToken = localStorage.getItem('accessToken'); 
 
     fetch(ratingUrl, {
