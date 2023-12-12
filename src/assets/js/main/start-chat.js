@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         // Hacer la solicitud POST a la API
-        fetch(`http://54.242.3.57:8000/api/v1/conversation/00000000-0000-0000-0000-000000000000/message/`, {
+        fetch(`https://api-omnissiah.omni.pro/api/v1/conversation/00000000-0000-0000-0000-000000000000/message/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

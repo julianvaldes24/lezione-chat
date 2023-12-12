@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             try {
-                const response = await fetch('http://54.242.3.57:8000/api/token/', {
+                const response = await fetch('https://api-omnissiah.omni.pro/api/token/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
