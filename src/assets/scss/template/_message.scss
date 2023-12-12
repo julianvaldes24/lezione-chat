@@ -23,7 +23,11 @@
         }
     }
 }
-
+.message-out{
+    .message-text{
+        padding-bottom: $message-padding-y;
+    }
+}
 .message {
     display: flex;
     align-items: flex-end;
@@ -76,7 +80,7 @@
     &-text {
         background: $message-bg;
         border-radius: $message-border-radius;
-        padding: $message-padding-y $message-padding-x;
+        padding: $message-padding-y $message-padding-x 0;
         color: $message-color;
 
         .message-out & {
