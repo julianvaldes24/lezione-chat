@@ -147,7 +147,7 @@ function createMessageElement(message) {
                 <span class="star" data-value="2">&#9733;</span>
                 <span class="star" data-value="1">&#9733;</span>
             </div>`;
-           
+
     }
 
     messageDiv.innerHTML = `
@@ -187,7 +187,7 @@ function starEvents(messageElement, isLastMessage) {
         });
     } else {
         stars.forEach(function (star) {
-            star.style.pointerEvents = 'none'; 
+            star.style.pointerEvents = 'none';
         });
     }
 }
@@ -195,7 +195,7 @@ function starEvents(messageElement, isLastMessage) {
 function addMessageAndScroll(messageData) {
     const chatBody = document.querySelector('.chat-body-inner');
     const messageElement = createMessageElement(messageData);
-    starEvents(messageDiv);
+    //starEvents(messageDiv);
     chatBody.appendChild(messageElement);
     scrollToBottom();
 }
