@@ -18,6 +18,10 @@ const md = new MarkdownIt({
 
 md.use(markdownItHighlightjs);
 
+//loader al cargar el sitio
+let loaderIcon = document.getElementById('main-logo');
+loaderIcon.innerHTML = '<img src="../../assets/img/avatars/omnissiah_icon.svg" alt="Omnissiah Icon" width="100%">';
+
 document.addEventListener('DOMContentLoaded', function () {
     const urlParams = new URLSearchParams(window.location.search);
     const conversationId = urlParams.get('conversationId');
