@@ -115,11 +115,12 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function renderChatMessages(data) {
+    console.log("data", data);
     const chatBody = document.querySelector('.chat-body-inner');
     data.results.slice().reverse().forEach((message, index, array) => {
         let messageElement = createMessageElement(message);
         // Pasar true si es el último mensaje
-        starEvents(messageElement, index === array.length - 1);
+        starEvents(messageElement, index === array.length - 1, message);
         chatBody.appendChild(messageElement);
     });
 }
@@ -139,15 +140,7 @@ function createMessageElement(message) {
             <a href="#" data-bs-toggle="modal" data-bs-target="#modal-user-profile" class="avatar avatar-responsive">
                 <img class="avatar-img" src="assets/img/avatars/omnissiah_icon.gif" alt="">
             </a>`;
-        starRating = `
-            <div class="star-rating">
-                <span class="star" data-value="5">&#9733;</span>
-                <span class="star" data-value="4">&#9733;</span>
-                <span class="star" data-value="3">&#9733;</span>
-                <span class="star" data-value="2">&#9733;</span>
-                <span class="star" data-value="1">&#9733;</span>
-            </div>`;
-
+        starRating = generateStarRating(message.rating);
     }
 
     messageDiv.innerHTML = `
@@ -171,25 +164,66 @@ function createMessageElement(message) {
     starEvents(messageDiv);
     return messageDiv;
 }
-function starEvents(messageElement, isLastMessage) {
+function generateStarRating(rating) {
+    let starsHTML = '';
+    for (let i = 5; i >= 1; i--) {
+        starsHTML += `<span class="star ${i <= rating ? 'select-star' : ''}" data-value="${i}">&#9733;</span>`;
+    }
+    return `<div class="star-rating">${starsHTML}</div>`;
+}
+function starEvents(messageElement, isLastMessage, message) {
     let stars = messageElement.querySelectorAll('.star-rating .star');
     if (isLastMessage) {
-        stars.forEach(function (star) {
-            star.style.pointerEvents = 'auto';
-            star.addEventListener('click', function () {
-                let rating = star.getAttribute('data-value');
-                star.classList.add('select-star');
-                stars.forEach(function (starNoHover) {
-                    starNoHover.style.pointerEvents = 'none';
+        if (message.rating == 0) {
+            stars.forEach(function (star) {
+                star.style.pointerEvents = 'auto';
+                star.addEventListener('click', function () {
+                    let rating = star.getAttribute('data-value');
+                    sendRating(message.id, message.conversation_id, rating);
+                    star.classList.add('select-star');
+                    stars.forEach(function (starNoHover) {
+                        starNoHover.style.pointerEvents = 'none';
+                    });
                 });
-                console.log("calificacion", rating);
             });
-        });
+        } else {
+            stars.forEach(function (star) {
+                star.style.pointerEvents = 'none';
+            });   
+        } 
     } else {
         stars.forEach(function (star) {
             star.style.pointerEvents = 'none';
         });
     }
+}
+
+function sendRating(messageId, conversationId, rating) {
+    const ratingUrl = `http://54.242.3.57:8000/api/v1/conversation/${conversationId}/message/${messageId}/rating/`;
+    const authToken = localStorage.getItem('accessToken'); 
+
+    fetch(ratingUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authToken
+        },
+        body: JSON.stringify({
+            "rating": rating
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error en la solicitud: ' + response.statusText);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Calificación enviada con éxito:', data);
+    })
+    .catch(error => {
+        console.error('Error al enviar calificación:', error);
+    });
 }
 
 function addMessageAndScroll(messageData) {
