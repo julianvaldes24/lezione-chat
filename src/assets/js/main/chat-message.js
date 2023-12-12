@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
-    const apiUrl = `http://54.242.3.57:8000/api/v1/conversation/${conversationId}/message/`;
+    const apiUrl = `https://api-omnissiah.omni.pro/api/v1/conversation/${conversationId}/message/`;
     const authToken = localStorage.getItem('accessToken');
 
     fetch(apiUrl, {
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        fetch(`http://54.242.3.57:8000/api/v1/conversation/${conversationId}/message/`, {
+        fetch(`https://api-omnissiah.omni.pro/api/v1/conversation/${conversationId}/message/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -203,7 +203,7 @@ function starEvents(messageElement, isLastMessage, message) {
 }
 
 function sendRating(messageId, conversationId, rating) {
-    const ratingUrl = `http://54.242.3.57:8000/api/v1/conversation/${conversationId}/message/${messageId}/rating/`;
+    const ratingUrl = `https://api-omnissiah.omni.pro/api/v1/conversation/${conversationId}/message/${messageId}/rating/`;
     const authToken = localStorage.getItem('accessToken'); 
 
     fetch(ratingUrl, {

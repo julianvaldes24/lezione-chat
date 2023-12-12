@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const apiUrl = 'http://54.242.3.57:8000/api/v1/conversation/';
+    const apiUrl = 'https://api-omnissiah.omni.pro/api/v1/conversation/';
     const authToken = localStorage.getItem('accessToken');
 
     if (!authToken && window.location.pathname !== '/signin.html') {

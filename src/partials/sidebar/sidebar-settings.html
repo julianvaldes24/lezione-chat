@@ -85,38 +85,6 @@
                                 </div>
                             </div>
 
-                            <div class="accordion-item">
-                                <div class="accordion-header" id="accordion-profile-2">
-                                    <a href="#" class="accordion-button text-reset collapsed" data-bs-toggle="collapse" data-bs-target="#accordion-profile-body-2" aria-expanded="false" aria-controls="accordion-profile-body-2">
-                                        <div>
-                                            <h5>Connected accounts</h5>
-                                            <p>Connect with your accounts</p>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div id="accordion-profile-body-2" class="accordion-collapse collapse" aria-labelledby="accordion-profile-2" data-parent="#accordion-profile">
-                                    <div class="accordion-body">
-                                        <div class="form-floating mb-6">
-                                            <input type="text" class="form-control" id="profile-twitter" placeholder="Twitter">
-                                            <label for="profile-twitter">Twitter</label>
-                                        </div>
-
-                                        <div class="form-floating mb-6">
-                                            <input type="text" class="form-control" id="profile-facebook" placeholder="Facebook">
-                                            <label for="profile-facebook">Facebook</label>
-                                        </div>
-
-                                        <div class="form-floating mb-6">
-                                            <input type="text" class="form-control" id="profile-instagram" placeholder="Instagram">
-                                            <label for="profile-instagram">Instagram</label>
-                                        </div>
-
-                                        <button type="button" class="btn btn-block btn-lg btn-primary w-100">Save</button>
-                                    </div>
-                                </div>
-                            </div>
-
                             <!-- Switch -->
                             <div class="accordion-item">
                                 <div class="accordion-header">
@@ -210,155 +178,6 @@
             </div>
             <!-- Security -->
 
-            <!-- Storage -->
-            <div class="mt-8">
-                <div class="d-flex align-items-center my-4 px-6">
-                    <small class="text-muted me-auto">Storage</small>
-
-                    <div class="flex align-items-center text-muted">
-                        <a href="#" class="text-muted small">Clear storage</a>
-
-                        <div class="icon icon-xs">
-                            @@include("../../assets/img/icons/bar-chart-2.svg")
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card border-0">
-                    <div class="card-body py-2">
-                        <!-- Accordion -->
-                        <div class="accordion accordion-flush" id="accordion-storage">
-                            <div class="accordion-item">
-                                <div class="accordion-header" id="accordion-storage-1">
-                                    <a href="#" class="accordion-button text-reset collapsed" data-bs-toggle="collapse" data-bs-target="#accordion-storage-body-1" aria-expanded="false" aria-controls="accordion-storage-body-1">
-                                        <div>
-                                            <h5>Cache</h5>
-                                            <p>Maximum cache size</p>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div id="accordion-storage-body-1" class="accordion-collapse collapse" aria-labelledby="accordion-storage-1" data-parent="#accordion-storage">
-                                    <div class="accordion-body">
-                                        <div class="row justify-content-between mb-4">
-                                            <div class="col-auto">
-                                                <small>2 GB</small>
-                                            </div>
-                                            <div class="col-auto">
-                                                <small>4 GB</small>
-                                            </div>
-                                            <div class="col-auto">
-                                                <small>6 GB</small>
-                                            </div>
-                                            <div class="col-auto">
-                                                <small>8 GB</small>
-                                            </div>
-                                        </div>
-                                        <input type="range" class="form-range" min="1" max="4" step="1" id="custom-range-1">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="accordion-item">
-                                <div class="accordion-header">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <h5>Keep media</h5>
-                                            <p>Photos, videos and other files</p>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" id="accordion-storage-check-1">
-                                                <label class="form-check-label" for="accordion-storage-check-1"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Storage -->
-
-            <!-- Notifications -->
-            <div class="mt-8">
-                <div class="d-flex align-items-center my-4 px-6">
-                    <small class="text-muted me-auto">Notifications</small>
-                </div>
-
-                <!-- Accordion -->
-                <div class="card border-0">
-                    <div class="card-body py-2">
-                        <div class="accordion accordion-flush" id="accordion-notifications">
-                            <div class="accordion-item">
-                                <div class="accordion-header" id="accordion-notifications-1">
-                                    <a href="#" class="accordion-button text-reset collapsed" data-bs-toggle="collapse" data-bs-target="#accordion-notifications-body-1" aria-expanded="false" aria-controls="accordion-notifications-body-1">
-                                        <div>
-                                            <h5>Message</h5>
-                                            <p>Set custom notifications for users</p>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div id="accordion-notifications-body-1" class="accordion-collapse collapse" aria-labelledby="accordion-notifications-1" data-parent="#accordion-notifications">
-                                    <div class="accordion-body">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-                                                <h5>Text</h5>
-                                                <p>Show text in notifications</p>
-                                            </div>
-
-                                            <div class="col-auto">
-                                                <div class="form-check form-switch">
-                                                    <input class="form-check-input" type="checkbox" id="accordion-notifications-check-1">
-                                                    <label class="form-check-label" for="accordion-notifications-check-1"></label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="accordion-item">
-                                <div class="accordion-header">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <h5>Sound</h5>
-                                            <p>Enable sound notifications</p>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" id="accordion-notifications-check-3">
-                                                <label class="form-check-label" for="accordion-notifications-check-3"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="accordion-item">
-                                <div class="accordion-header">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <h5>Browser notifications</h5>
-                                            <p>Enable browser notifications</p>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" id="accordion-notifications-check-2" checked>
-                                                <label class="form-check-label" for="accordion-notifications-check-2"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Notifications -->
-
             <!-- Devices -->
             <div class="mt-8">
                 <div class="d-flex align-items-center my-4 px-6">
@@ -377,6 +196,7 @@
                     <div class="card-body py-3">
 
                         <ul class="list-group list-group-flush">
+
                             <li class="list-group-item">
                                 <div class="row align-items-center">
                                     <div class="col">
@@ -389,14 +209,6 @@
                                 </div>
                             </li>
 
-                            <li class="list-group-item">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <h5>iPhone ⋅ USA, Houston</h5>
-                                        <p>Yesterday at 2:48 pm ⋅ Browser: Chrome</p>
-                                    </div>
-                                </div>
-                            </li>
                         </ul>
 
                     </div>
