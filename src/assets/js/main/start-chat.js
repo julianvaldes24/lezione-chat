@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(data => {
             console.log('Success:', data);
             const conversationId = data.conversation.conversation_id; // Obtener el ID de la conversación
-            window.location.href = `/chat-direct.html?conversationId=${conversationId}`; // Redirigir
+            window.location.href = `/chat.html?conversationId=${conversationId}`; // Redirigir
         })
         .catch(error => {
             console.error('Error:', error);
