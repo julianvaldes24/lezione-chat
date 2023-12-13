@@ -1,7 +1,8 @@
-// Url base de la api
+// Importaciones de otros módulos para configuraciones y funciones comunes
 import {urlBaseEndpoint} from './vars.js';
-import {redirectToLogin} from './common.js';
+import {checkAuthToken} from './common.js';
 
+// Al cargar el documento, se intenta recuperar y mostrar las conversaciones
 document.addEventListener('DOMContentLoaded', async function () {
     try {
         await fetchChats();
@@ -10,14 +11,14 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 });
 
+/**
+ * Recupera las conversaciones desde la API y actualiza la interfaz de usuario.
+ */
 async function fetchChats() {
-    const apiUrl = `${urlBaseEndpoint}api/v1/conversation/`;
-    const authToken = localStorage.getItem('accessToken');
+    const apiUrl = `${urlBaseEndpoint}api/v1/conversation/?limit=100`;
 
-    if (!authToken) {
-        redirectToLogin();
-        return;
-    }
+    // Verifica si el token de autenticación está disponible
+    const authToken = await checkAuthToken();
 
     const response = await fetch(apiUrl, getFetchOptions(authToken));
     if (!response.ok) {
@@ -28,6 +29,11 @@ async function fetchChats() {
     updateUI(data);
 }
 
+/**
+ * Configura las opciones de solicitud para la API.
+ * @param {string} token - El token de autenticación JWT.
+ * @returns {Object} Las opciones de la solicitud.
+ */
 function getFetchOptions(token) {
     return {
         method: 'GET',
@@ -38,25 +44,28 @@ function getFetchOptions(token) {
     };
 }
 
+/**
+ * Actualiza la interfaz de usuario con los datos de las conversaciones.
+ * @param {Object} data - Datos de las conversaciones obtenidas de la API.
+ */
 function updateUI(data) {
     const chatsContainer = document.querySelector('#tab-content-chats .card-list');
+    const conversationCountElement = document.querySelector('.nav-item .badge span');
+
     chatsContainer.innerHTML = '';
 
-    const groupedConversations = {};
+    // Agrupa las conversaciones por fecha
+    const groupedConversations = groupConversationsByDate(data.results);
 
-    data.results.forEach(conversation => {
-        const date = new Date(conversation.created_at);
-        const group = getConversationGroup(date);
+    // Actualiza el contador de conversaciones
+    if (conversationCountElement) {
+        conversationCountElement.textContent = data.results.length.toString();
+    }
 
-        if (!groupedConversations[group]) {
-            groupedConversations[group] = [];
-        }
-
-        groupedConversations[group].push(conversation);
-    });
-
+    // Crea y agrega elementos de conversación a la interfaz de usuario
     Object.keys(groupedConversations).forEach(group => {
         const groupHeader = document.createElement('h4');
+        groupHeader.className = 'text-group';
         groupHeader.textContent = group;
         chatsContainer.appendChild(groupHeader);
 
@@ -67,15 +76,49 @@ function updateUI(data) {
     });
 }
 
-
+/**
+ * Crea un elemento de tarjeta para una conversación.
+ * @param {Object} conversation - Datos de una conversación individual.
+ * @returns {HTMLElement} El elemento de tarjeta creado.
+ */
 function createChatCard(conversation) {
     const card = document.createElement('a');
     card.href = `chat.html?conversationId=${conversation.conversation_id}`;
     card.className = "card border-0 text-reset";
     card.innerHTML = getCardInnerHTML(conversation);
+    setSessionStorage(conversation);
     return card;
 }
 
+
+/**
+ * Almacena la información de una conversación en sessionStorage.
+ *
+ * Esta función toma un objeto de conversación y guarda su ID y título en sessionStorage.
+ * Esto es útil para mantener un registro rápido de conversaciones recientes o importantes
+ * que necesitan ser accesibles durante la sesión actual del navegador.
+ *
+ * @param {Object} conversation - Objeto de conversación que contiene el ID y el título.
+ */
+function setSessionStorage(conversation) {
+    // Verifica si el objeto de conversación y sus propiedades requeridas existen
+    if (conversation && conversation.conversation_id && conversation.title) {
+        try {
+            sessionStorage.setItem(conversation.conversation_id, conversation.title);
+        } catch (error) {
+            console.error("Error al guardar en sessionStorage:", error);
+        }
+    } else {
+        console.error("Datos de conversación inválidos proporcionados a setSessionStorage.");
+    }
+}
+
+
+/**
+ * Genera el contenido interno de una tarjeta de conversación.
+ * @param {Object} conversation - Datos de una conversación individual.
+ * @returns {string} El HTML interno para la tarjeta.
+ */
 function getCardInnerHTML(conversation) {
     return `
         <div class="card-body">
@@ -90,11 +133,43 @@ function getCardInnerHTML(conversation) {
         </div>`;
 }
 
+/**
+ * Formatea una fecha en un formato legible.
+ * @param {string} dateString - La fecha en formato string.
+ * @returns {string} La fecha formateada.
+ */
 function formatDate(dateString) {
     const date = new Date(dateString);
     return date.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
 }
 
+/**
+ * Agrupa las conversaciones por fecha (Hoy, Ayer, Últimos 7 Días, etc.)
+ * @param {Array} conversations - Array de conversaciones.
+ * @returns {Object} Conversaciones agrupadas por fecha.
+ */
+function groupConversationsByDate(conversations) {
+    const grouped = {};
+
+    conversations.forEach(conversation => {
+        const date = new Date(conversation.created_at);
+        const group = getConversationGroup(date);
+
+        if (!grouped[group]) {
+            grouped[group] = [];
+        }
+
+        grouped[group].push(conversation);
+    });
+
+    return grouped;
+}
+
+/**
+ * Determina el grupo de fecha para una conversación (Hoy, Ayer, etc.)
+ * @param {Date} date - La fecha de la conversación.
+ * @returns {string} El nombre del grupo de fecha.
+ */
 function getConversationGroup(date) {
     const today = new Date();
     const yesterday = new Date(today);
