@@ -62,6 +62,18 @@
     color: #f5a623; 
   }
   
+  .profile-icon{
+    width: 100%;
+    background: $omnissiahPrimary;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    h5{
+        font-size: 18px;
+        font-weight: bold;
+    }
+  }
   
 // .star-rating {
 //     font-size: 0;

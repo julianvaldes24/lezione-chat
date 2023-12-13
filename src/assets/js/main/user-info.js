@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const sistemaOperativo = result.os.name;
 
     loadUserInfo(username, mail);
+    profileIcon(username);
     profileSettings(username, mail)
     localSystemInfo(getBrowser(), sistemaOperativo, formatDate());
 });
@@ -22,6 +23,13 @@ function loadUserInfo(username, mail){
     document.getElementById("user-info").innerHTML = `
         <h5>${username}</h5>
         <p>${mail}</p>
+    `;
+}
+
+function profileIcon(username){
+    let iniciales = username.split(' ').map(palabra => palabra[0]).join('');
+    document.getElementById("profileIcon").innerHTML = `
+        <h5>${iniciales}</h5>
     `;
 }
 
