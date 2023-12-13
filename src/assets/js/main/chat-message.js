@@ -72,7 +72,8 @@ document.addEventListener('DOMContentLoaded', function () {
     chatForm.addEventListener('submit', function (event) {
         event.preventDefault();
 
-        const messageText = messageInput.value;
+        const messageText = JSON.stringify(messageInput.value);
+        console.log(messageText)
         if (!messageText.trim()) return;
 
         const userMessageData = {
