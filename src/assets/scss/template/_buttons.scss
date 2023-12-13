@@ -73,3 +73,7 @@
         @include size(1.125rem);
     }
 }
+.cancel-btn{
+    background-color: $red;
+    color: white;
+}

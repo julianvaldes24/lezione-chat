@@ -83,3 +83,15 @@
         }
     }
 }
+
+.edit-user-panel{
+    display: flex;
+    align-items: center;
+    .tab-pane{
+        width: 100%;
+    }
+    .avatar-lg{
+        width: 120px;
+        height: 120px;
+    }
+}
