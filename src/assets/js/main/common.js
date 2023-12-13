@@ -155,6 +155,7 @@ function storeLoginDetails(data) {
     localStorage.setItem('name', payload.name);
     localStorage.setItem('email', payload.email);
     localStorage.setItem('userId', payload.user_id);
+    localStorage.setItem('isStaff', payload.is_staff);
 
     // Convierte el tiempo de expiración a una fecha legible y guárdala
     localStorage.setItem('exp', new Date(payload.exp * 1000).toLocaleString());
