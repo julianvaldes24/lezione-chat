@@ -152,7 +152,7 @@ function groupConversationsByDate(conversations) {
     const grouped = {};
 
     conversations.forEach(conversation => {
-        const date = new Date(conversation.created_at);
+        const date = new Date(conversation.updated_at);
         const group = getConversationGroup(date);
 
         if (!grouped[group]) {

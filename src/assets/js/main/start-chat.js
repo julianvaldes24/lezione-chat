@@ -33,11 +33,11 @@ function submitForm(form) {
  * Maneja el envío del formulario de chat.
  * @param {Event} e - El evento de envío del formulario.
  */
-function handleFormSubmit(e) {
+async function handleFormSubmit(e) {
     e.preventDefault();
 
     // Verifica si el token de autenticación está disponible
-    const authToken = checkAuthToken();
+    const authToken = await checkAuthToken();
 
     // Construye y envía la solicitud de chat
     const payload = buildChatPayload();
