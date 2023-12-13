@@ -1,5 +1,6 @@
 //imports
 import UAParser from 'ua-parser-js';
+import {logout} from './common.js';
 
 //Exports
 export {loadUserInfo};
@@ -16,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
     profileIcon(username);
     profileSettings(username, mail)
     localSystemInfo(getBrowser(), sistemaOperativo, formatDate());
+    document.getElementById("logout-icon").addEventListener("click", logout);
 });
 
 //Se agrega la informacion del usuario
