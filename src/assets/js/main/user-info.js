@@ -12,7 +12,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const parser = new UAParser();
     const result = parser.getResult();
     const sistemaOperativo = result.os.name;
+    const isStaff = localStorage.getItem('isStaff');
 
+    console.log(isStaff);
+
+    createUsersSection(isStaff);
     loadUserInfo(username, mail);
     profileIcon(username);
     profileSettings(username, mail)
@@ -100,4 +104,12 @@ function formatDate() {
     let formateada = fechaFormateada + " a las " + horaFormateada;
 
     return formateada;
+}
+
+function createUsersSection(isStaff){
+    if (isStaff == "true") {
+        document.getElementById("users-section").style.display = "block";
+    }else{
+        document.getElementById("users-section").style.display = "none";
+    }
 }
