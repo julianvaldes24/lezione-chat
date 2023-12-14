@@ -161,6 +161,17 @@ function storeLoginDetails(data) {
     localStorage.setItem('exp', new Date(payload.exp * 1000).toLocaleString());
 }
 
+//log-out
+function logout(){
+    let colorScheme = localStorage.getItem('color-scheme');
+    localStorage.clear();
+    sessionStorage.clear();
+    if(colorScheme !== null){
+        localStorage.setItem('color-scheme', colorScheme);
+    }
+    redirectToLogin();
+}
+
 
 // Exportaciones nombradas de las funciones para su uso en otros módulos.
-export {hideLoader, showLoader, redirectToLogin, checkAuthToken, md, storeLoginDetails};
+export {hideLoader, showLoader, redirectToLogin, checkAuthToken, md, storeLoginDetails, logout};

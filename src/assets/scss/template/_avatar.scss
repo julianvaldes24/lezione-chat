@@ -35,9 +35,13 @@
     background: url(../../assets/img/avatars/omnissiah_icon.gif) no-repeat !important;
     background-size: 100% !important;
 }
+.ia-avatar-bg,
+.ia-avatar-modal-bg{
+    height: 200px !important;
+}
+
 .ia-avatar-bg{
     background: url(../../assets/img/banners/omnissiah_background.jpg) no-repeat !important;
-    height: 200px !important;
     background-size: cover !important;
 }
 .star-rating {
@@ -71,6 +75,10 @@
     align-items: center;
     h5{
         font-size: 18px;
+        font-weight: bold;
+    }
+    .user-abbr{
+        font-size: 35px;
         font-weight: bold;
     }
   }

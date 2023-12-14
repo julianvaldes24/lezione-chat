@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Head -->
+@@include("partials/head/head.html")
+
+<body>
+<!-- Layout -->
+<div class="layout overflow-hidden">
+    <!-- Navigation -->
+    @@include("partials/navigation/navigation.html")
+    <!-- Navigation -->
+
+    <!-- Sidebar -->
+    @@include("partials/sidebar/sidebar.html")
+    <!-- Sidebar -->
+
+    <!-- Chat -->
+    <main class="main">
+        <div class="container h-100 edit-user-panel">
+
+            <div class="tab-pane fade show active" role="tabpanel">
+
+                <div class="card border-0">
+                    <div class="profile">
+                        <div class="profile-img text-primary rounded-top">
+                            @@include("./assets/img/core/card-header.svg")
+                        </div>
+
+                        <div class="profile-body p-0">
+                            <div class="avatar avatar-lg">
+                                <span class="avatar-text bg-primary profile-icon">
+                                    <h5 class="user-abbr">N/A</h5>
+                                    <!-- IA avatar -->
+                                </span>
+
+
+                                <input id="upload-chat-img" class="d-none" type="file">
+                                <label class="stretched-label mb-0" for="upload-chat-img"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <form autocomplete="off" id="new_question_id">
+                            <div class="row gy-6">
+                                <div class="col-12">
+                                    <form class="row gy-6">
+                                        <div class="col-12">
+                                            <label for="invite-email" class="form-label text-muted">Name</label>
+                                            <input type="text" class="form-control form-control-lg" id="invite-email" placeholder="N/A">
+                                        </div>
+                
+                                        <div class="col-12">
+                                            <label for="invite-email" class="form-label text-muted">Email</label>
+                                            <input type="email" class="form-control form-control-lg" id="invite-email" placeholder="N/A">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Options -->
+                <div class="mt-8">
+                    <div class="card border-0">
+                        <div class="card-body">
+                            <div class="row gx-5">
+                                <div class="col-auto">
+                                   
+                                </div>
+                                <div class="col">
+                                    <h5>Is Active</h5>
+                                </div>
+                                <div class="col-auto align-self-center">
+                                    <div class="form-check form-switch ps-0">
+                                        <input class="form-check-input" type="checkbox" id="new-chat-options-1"
+                                            checked>
+                                        <label class="form-check-label" for="new-chat-options-1"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8">
+                    <div class="card border-0">
+                        <div class="card-body">
+                            <div class="row gx-5">
+                                <div class="col-auto">
+                                   
+                                </div>
+                                <div class="col">
+                                    <h5>Is Staff</h5>
+                                </div>
+                                <div class="col-auto align-self-center">
+                                    <div class="form-check form-switch ps-0">
+                                        <input class="form-check-input" type="checkbox" id="new-chat-options-1"
+                                            checked>
+                                        <label class="form-check-label" for="new-chat-options-1"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <a href="#" class="btn btn-lg btn-primary w-100 d-flex align-items-center">
+                        Save
+
+                        <span class="icon ms-auto">
+                            @@include("./assets/img/icons/arrow-right.svg")
+                        </span>
+                    </a>
+                </div>
+                <div class="mt-5">
+                    <a href="./index.html" class="btn btn-lg cancel-btn w-100 d-flex align-items-center">
+                        Cancel
+
+                        <span class="icon ms-auto">
+                            @@include("./assets/img/icons/x.svg")
+                        </span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    <!-- Chat -->
+
+</div>
+<!-- Layout -->
+
+<!-- Load: Load -->
+@@include("partials/loaders/load.html")
+
+<!-- Modal: Invite -->
+@@include("partials/modal/invite.html")
+
+<!-- Modal: Profile -->
+@@include("partials/modal/profile.html")
+
+<!-- Modal: User profile -->
+@@include("partials/modal/user-profile.html")
+
+<!-- Modal: Media Preview -->
+@@include("partials/modal/media-preview.html")
+
+<!-- Scripts -->
+@@include("partials/scripts/scripts.html")
+</body>
+</html>

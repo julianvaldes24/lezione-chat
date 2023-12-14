@@ -1,5 +1,6 @@
 //imports
 import UAParser from 'ua-parser-js';
+import {logout} from './common.js';
 
 //Exports
 export {loadUserInfo};
@@ -11,11 +12,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const parser = new UAParser();
     const result = parser.getResult();
     const sistemaOperativo = result.os.name;
+    const isStaff = localStorage.getItem('isStaff');
 
+    console.log(isStaff);
+
+    createUsersSection(isStaff);
     loadUserInfo(username, mail);
     profileIcon(username);
     profileSettings(username, mail)
     localSystemInfo(getBrowser(), sistemaOperativo, formatDate());
+    document.getElementById("logout-icon").addEventListener("click", logout);
 });
 
 //Se agrega la informacion del usuario
@@ -98,4 +104,12 @@ function formatDate() {
     let formateada = fechaFormateada + " a las " + horaFormateada;
 
     return formateada;
+}
+
+function createUsersSection(isStaff){
+    if (isStaff == "true") {
+        document.getElementById("users-section").style.display = "block";
+    }else{
+        document.getElementById("users-section").style.display = "none";
+    }
 }
