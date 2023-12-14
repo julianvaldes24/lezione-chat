@@ -62,3 +62,36 @@ body {
   padding: 0.75rem;
   color: #8d9194;
 }
+
+@keyframes rotate {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.rotating-border::before {
+  content: '';
+  position: absolute;
+  top: -8px; /* Ajustar según el tamaño del borde */
+  right: -8px; /* Ajustar según el tamaño del borde */
+  bottom: -8px; /* Ajustar según el tamaño del borde */
+  left: -8px; /* Ajustar según el tamaño del borde */
+  border-radius: 50%; /* Círculo perfecto */
+  background: linear-gradient(90deg, #04fefd, #eeea6c, #f50d01, #fe4411, #04fefd);
+  background-size: 400% 400%;
+  z-index: -1;
+  animation: rotate 10s linear infinite; /* Ajustar la duración según prefieras */
+}
+
+.avatar.avatar-lg {
+  position: relative;
+  z-index: 1; /* Asegurarse que el avatar esté por encima del borde giratorio */
+}
+
+.avatar .avatar-text {
+  background: #fdfdfd !important;
+}
+

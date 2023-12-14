@@ -28,4 +28,4 @@ import './main/main';
 
 //User
 import './main/user-info';
-import './main/get-users';
+import './main/users';
