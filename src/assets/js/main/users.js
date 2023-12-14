@@ -1,26 +1,46 @@
 import {urlBaseEndpoint} from './vars.js';
+import {checkAuthToken} from './common.js';
 
 // Evento que se dispara cuando el contenido del DOM está completamente cargado.
-document.addEventListener('DOMContentLoaded', () => {
-    fetchUsers();
-    activateUsersTab();
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const authToken = await checkAuthToken();
+        if (authToken) {
+            await fetchUsers(authToken);
+            activateUsersTab();
+            if (window.location.pathname.endsWith('/user.html')) {
+                // Si estamos en la página de listado de usuarios
+                const userId = new URLSearchParams(window.location.search).get('userId');
+                if (userId) {
+                    fetchUserDetails(userId, authToken);
+                } else {
+                    console.error('No se proporcionó userId en la URL.');
+                }
+            }
+        }
+    } catch (error) {
+        console.error('Error inicializando la página:', error);
+    }
 });
 
 /**
  * Realiza una solicitud a la API para obtener los datos de los usuarios.
+ * @param {string} authToken - Token de autenticación del usuario.
  */
-function fetchUsers() {
+async function fetchUsers(authToken) {
     const apiUrl = `${urlBaseEndpoint}api/v1/users/`;
 
-    fetch(apiUrl)
-        .then(handleResponse)
-        .then(data => {
-            console.log('Usuarios:', data);
-            renderUsers(data.results);
-        })
-        .catch(error => {
-            console.error('Error al obtener usuarios:', error);
+    try {
+        const response = await fetch(apiUrl, {
+            headers: {
+                'Authorization': `Bearer ${authToken}`
+            }
         });
+        const data = await handleResponse(response);
+        renderUsers(data.results);
+    } catch (error) {
+        console.error('Error al obtener usuarios:', error);
+    }
 }
 
 /**
@@ -83,22 +103,66 @@ function createUserCardHtml(user) {
     `;
 }
 
+async function fetchUserDetails(userId, authToken) {
+    const apiUrl = `${urlBaseEndpoint}api/v1/users/${userId}/`;
+    try {
+        const response = await fetch(apiUrl, {
+            headers: {
+                'Authorization': `Bearer ${authToken}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error en la solicitud: ${response.statusText}`);
+        }
+
+        const userDetails = await response.json();
+        fillUserForm(userDetails);
+    } catch (error) {
+        console.error('Error al obtener los detalles del usuario:', error);
+    }
+}
+
+function fillUserForm(user) {
+    // Actualiza los campos del formulario con la información del usuario
+    document.getElementById('user-email').value = user.email;
+    document.getElementById('username').value = user.username;
+    document.getElementById('first-name').value = user.first_name;
+    document.getElementById('last-name').value = user.last_name;
+    document.getElementById('is-active').checked = user.is_active;
+    document.getElementById('is-staff').checked = user.is_staff;
+
+    // Actualiza la fecha y hora de último inicio de sesión si está disponible
+    if (user.last_login) {
+        const lastLoginDate = new Date(user.last_login);
+        document.getElementById('last-login').value = lastLoginDate.toISOString().slice(0, -1);
+    }
+
+    // Actualiza las iniciales en el avatar del usuario
+    updateProfileIcon(user.first_name, user.last_name);
+}
+
+function updateProfileIcon(firstName, lastName) {
+    // Obtiene las iniciales del nombre y apellido
+    const initials = `${firstName[0]}${lastName[0]}`;
+    const userAbbrElement = document.querySelector('.user-abbr');
+
+    // Actualiza el contenido del elemento h5 con las iniciales
+    if (userAbbrElement) {
+        userAbbrElement.textContent = initials.toUpperCase();
+    } else {
+        console.error('No se encontró el elemento para las iniciales del usuario.');
+    }
+}
+
 /**
  * Activa la pestaña de usuarios si la URL actual es /user.html.
  */
 function activateUsersTab() {
-    if (window.location.pathname.includes('/user.html')) {
-        // Selecciona todos los paneles del tab-content
+    if (window.location.pathname.endsWith('/user.html')) {
         const sidebarTabPanes = document.querySelectorAll('aside.sidebar > .tab-content > .tab-pane.fade');
-
-
-        // Elimina la clase 'active' de todos los paneles
         sidebarTabPanes.forEach(pane => pane.classList.remove('show', 'active'));
-
-        // Agrega la clase 'active' al panel de usuarios
-        const usersTab = document.getElementById('tab-content-users');
-        if (usersTab) {
-            usersTab.classList.add('show', 'active');
-        }
+        const usersTabPane = document.querySelector('#tab-content-users');
+        usersTabPane?.classList.add('show', 'active');
     }
 }
