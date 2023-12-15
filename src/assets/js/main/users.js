@@ -73,7 +73,7 @@ function renderUsers(users) {
 function createUserCardHtml(user) {
     const user_href = `user.html?userId=${user.id}`;
     return `
-        <div class="card border-0">
+        <div class="card border-0" id="user-card-${user.id}">
             <div class="card-body">
                 <div class="row align-items-center gx-5">
                     <div class="col-auto">
@@ -124,6 +124,13 @@ async function fetchUserDetails(userId, authToken) {
 }
 
 function fillUserForm(user) {
+    // Obtiene el valor de userId de la URL
+    let params = new URLSearchParams(window.location.search);
+    let userId = params.get('userId'); 
+    
+    let selectedCard = document.getElementById('user-card-'+userId);
+    selectedCard.classList.add('selected');
+
     // Actualiza los campos del formulario con la información del usuario
     document.getElementById('user-email').value = user.email;
     document.getElementById('username').value = user.username;
@@ -131,6 +138,7 @@ function fillUserForm(user) {
     document.getElementById('last-name').value = user.last_name;
     document.getElementById('is-active').checked = user.is_active;
     document.getElementById('is-staff').checked = user.is_staff;
+    // Suponiendo que la URL es "http://localhost:3000/user.html?userId=5#!"
 
     // Actualiza la fecha y hora de último inicio de sesión si está disponible
     if (user.last_login) {
