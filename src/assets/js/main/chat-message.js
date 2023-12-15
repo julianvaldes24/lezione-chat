@@ -147,15 +147,39 @@ function renderChatMessages(data) {
     // Si hay mensajes, procesa y muestra los mensajes, y almacena datos del último mensaje.
     if (data.results.length > 0) {
         storeLastMessageData(data.results[data.results.length - 1]);
-
         data.results.slice().reverse().forEach((message, index, array) => {
             const messageElement = createMessageElement(message);
             starEvents(messageElement, index === array.length - 1, message);
             chatBody.appendChild(messageElement);
         });
+        renderchatMessageInfo(data.results[data.results.length - 1]);
     } else {
         console.log('No hay mensajes para mostrar.');
     }
+}
+
+function renderchatMessageInfo(data) {
+    let chatRepoInfo = document.getElementById('chat-repo-info');
+    let chatProviderInfo = document.getElementById('chat-provider-info');
+    let chatModelInfo = document.getElementById('chat-model-info');
+    let chatTemperatureInfo = document.getElementById('chat-temperature-info');
+
+    chatRepoInfo.innerHTML = `
+        <h5>Repo</h5>
+        <p>${data.repo}</p>
+    `;
+    chatProviderInfo.innerHTML = `
+        <h5>Provider</h5>
+        <p>${data.model_chat.provider}</p>
+    `;
+    chatModelInfo.innerHTML = `
+        <h5>Model</h5>
+        <p>${data.model_chat.model}</p>
+    `;
+    chatTemperatureInfo.innerHTML = `
+        <h5>Temperature</h5>
+        <p>${data.model_chat.temperature.toString()}</p>
+    `;
 }
 
 /**
