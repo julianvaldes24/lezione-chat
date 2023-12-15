@@ -153,6 +153,7 @@ function renderChatMessages(data) {
             starEvents(messageElement, index === array.length - 1, message);
             chatBody.appendChild(messageElement);
         });
+
     } else {
         console.log('No hay mensajes para mostrar.');
     }
@@ -341,16 +342,16 @@ function initializeChatForm(conversationId) {
  * @param {string} conversationId - Identificador de la conversación.
  * @param {string} messageText - Texto del mensaje a enviar.
  */
-function sendMessage(conversationId, messageText) {
+async function sendMessage(conversationId, messageText) {
     const payload = {
         text: messageText,
-        model_embeddings: sessionStorage.getItem('lastMessageModelEmbeddings'),
-        chat_type: sessionStorage.getItem('lastMessageChatType'),
-        repo: sessionStorage.getItem('lastMessageRepo'),
+        model_embeddings: sessionStorage.getItem('lastMessageModelEmbeddings') || 'text-embedding-ada-002',
+        chat_type: sessionStorage.getItem('lastMessageChatType') || 'memory_chat',
+        repo: sessionStorage.getItem('lastMessageRepo') || 'sportline-magento',
         model_chat: {
-            provider: sessionStorage.getItem('lastMessageChatProvider'),
-            model: sessionStorage.getItem('lastMessageChatModel'),
-            temperature: sessionStorage.getItem('lastMessageChatTemperature'),
+            provider: sessionStorage.getItem('lastMessageProvider') || 'openai',
+            model: sessionStorage.getItem('lastMessageModel') || 'gpt-4-1106-preview',
+            temperature: parseFloat(sessionStorage.getItem('lastMessageTemperature')) || 0.5,
         }
     };
 
@@ -360,19 +361,25 @@ function sendMessage(conversationId, messageText) {
         return;
     }
 
-    fetch(`${urlBaseEndpoint}api/v1/conversation/${conversationId}/message/`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${authToken}`
-        },
-        body: JSON.stringify(payload)
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.ai_message) {
-                addMessageAndScroll(data.ai_message);
-            }
-        })
-        .catch(error => console.error('Error al enviar mensaje:', error));
+    try {
+        const response = await fetch(`${urlBaseEndpoint}api/v1/conversation/${conversationId}/message/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${authToken}`
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        if (data.ai_message) {
+            addMessageAndScroll(data.ai_message);
+        }
+    } catch (error) {
+        console.error('Error al enviar mensaje:', error);
+    }
 }
