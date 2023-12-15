@@ -135,10 +135,8 @@ function renderTitleConversation(conversation_id) {
 }
 
 
-
-
 /**
- * Renderiza los mensajes de chat en la interfaz de usuario.
+ * Renderiza los mensajes de chat en la interfaz de usuario y almacena información del último mensaje.
  *
  * @param {Object} data - Datos que contienen los mensajes de chat.
  */
@@ -146,13 +144,34 @@ function renderChatMessages(data) {
     const chatBody = document.querySelector('.chat-body-inner');
     chatBody.innerHTML = '';
 
-    console.log(data);
+    // Si hay mensajes, procesa y muestra los mensajes, y almacena datos del último mensaje.
+    if (data.results.length > 0) {
+        storeLastMessageData(data.results[data.results.length - 1]);
 
-    data.results.slice().reverse().forEach((message, index, array) => {
-        const messageElement = createMessageElement(message);
-        starEvents(messageElement, index === array.length - 1, message);
-        chatBody.appendChild(messageElement);
-    });
+        data.results.slice().reverse().forEach((message, index, array) => {
+            const messageElement = createMessageElement(message);
+            starEvents(messageElement, index === array.length - 1, message);
+            chatBody.appendChild(messageElement);
+        });
+    } else {
+        console.log('No hay mensajes para mostrar.');
+    }
+}
+
+/**
+ * Almacena información relevante del último mensaje en sessionStorage.
+ *
+ * @param {Object} lastMessage - El último mensaje de la lista de mensajes de chat.
+ */
+function storeLastMessageData(lastMessage) {
+    sessionStorage.setItem('lastMessageRepo', lastMessage.repo);
+    sessionStorage.setItem('lastMessageChatType', lastMessage.chat_type);
+    sessionStorage.setItem('lastMessageProvider', lastMessage.model_chat.provider);
+    sessionStorage.setItem('lastMessageModel', lastMessage.model_chat.model);
+    sessionStorage.setItem('lastMessageTemperature', lastMessage.model_chat.temperature.toString());
+    sessionStorage.setItem('lastMessageModelEmbeddings', lastMessage.model_embeddings);
+
+    console.log('Información del último mensaje almacenada en sessionStorage.');
 }
 
 /**
@@ -325,13 +344,13 @@ function initializeChatForm(conversationId) {
 function sendMessage(conversationId, messageText) {
     const payload = {
         text: messageText,
-        model_embeddings: "text-embedding-ada-002",
-        chat_type: "memory_chat",
-        repo: "saas-ms-user",
+        model_embeddings: sessionStorage.getItem('lastMessageModelEmbeddings'),
+        chat_type: sessionStorage.getItem('lastMessageChatType'),
+        repo: sessionStorage.getItem('lastMessageRepo'),
         model_chat: {
-            provider: "openai",
-            model: "gpt-4-1106-preview",
-            temperature: 0.3
+            provider: sessionStorage.getItem('lastMessageChatProvider'),
+            model: sessionStorage.getItem('lastMessageChatModel'),
+            temperature: sessionStorage.getItem('lastMessageChatTemperature'),
         }
     };
 
