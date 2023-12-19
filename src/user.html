@@ -161,10 +161,74 @@
                                     <!-- Tab Pane for Consumption -->
                                     <div class="tab-pane fade" id="consumptionContent" role="tabpanel"
                                          aria-labelledby="tab-consumption">
-                                        <h4>Consumption Content</h4>
-                                        <p>Content related to 'Consumo' goes here.</p>
-                                        <!-- More content... -->
+                                        <div class="container py-4">
+                                            <!-- Cards for Totals -->
+                                            <div class="row mb-4">
+                                                <div class="col-lg-4 mb-3">
+                                                    <div class="card shadow-sm">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">Total de Dinero Consumido</h5>
+                                                            <!-- Aquí iría el total calculado -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 mb-3">
+                                                    <div class="card shadow-sm">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">Total de Conversaciones</h5>
+                                                            <!-- Aquí iría el total calculado -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 mb-3">
+                                                    <div class="card shadow-sm">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">Total de Mensajes</h5>
+                                                            <!-- Aquí iría el total calculado -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Charts and Data Tables -->
+                                            <div class="row">
+                                                <!-- Bar Chart for Consumo Repo -->
+                                                <div class="col-lg-6 mb-4">
+                                                    <div class="card shadow-sm">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">Consumo Repo</h5>
+                                                            <canvas id="barChartConsumoRepo"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Line Chart for Consumo (Dinero/Días) -->
+                                                <div class="col-lg-6 mb-4">
+                                                    <div class="card shadow-sm">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">Consumo (Dinero/Días)</h5>
+                                                            <canvas id="lineChartConsumoDineroDias"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Star Ratings Cards -->
+                                            <div class="row">
+                                                <!-- Example for one Star Rating card -->
+                                                <div class="col-lg-4 mb-4">
+                                                    <div class="card shadow-sm">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">0 Star</h5>
+                                                            <!-- Aquí iría la cantidad y el porcentaje -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- ... Repeat for other star ratings ... -->
+                                            </div>
+                                        </div>
                                     </div>
+
 
                                     <!-- Tab Pane for Security -->
                                     <div class="tab-pane fade" id="securityContent" role="tabpanel"
