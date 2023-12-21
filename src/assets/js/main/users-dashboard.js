@@ -54,8 +54,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const dataPoints = data.total_cost_per_day.map(item => item.total);
 
                 // Configuración de la gráfica de Chart.js
-                const ctx = document.getElementById('consumoDiasChart').getContext('2d');
-                const consumoDiasChart = new Chart(ctx, {
+                const ctx = document.getElementById('consumptionDaysChart').getContext('2d');
+                const consumptionDaysChart = new Chart(ctx, {
                     type: 'line',
                     data: {
                         labels: labels,
@@ -86,6 +86,85 @@ document.addEventListener('DOMContentLoaded', async () => {
                         }
                     }
                 });
+
+                // Datos para la gráfica de conversaciones por día
+                const labelsConversationsDay = data.total_conversations_per_day.map(item => item.date);
+                const dataPointsConversationsDay = data.total_conversations_per_day.map(item => item.total);
+
+                // Configuración de la gráfica de Chart.js para conversaciones por día
+                const ctxConversationsDay = document.getElementById('repoConversationsChart').getContext('2d');
+                const repoConversationsChart = new Chart(ctxConversationsDay, {
+                    type: 'line',
+                    data: {
+                        labels: labelsConversationsDay,
+                        datasets: [{
+                            label: 'Conversaciones por Día',
+                            data: dataPointsConversationsDay,
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: 'Conversaciones por Día'
+                            }
+                        }
+                    }
+                });
+
+                // Datos para la gráfica de mensajes por día
+                const labelsMessagesDay = data.total_messages_per_day.map(item => item.date);
+                const dataPointsMessagesDay = data.total_messages_per_day.map(item => item.total);
+
+                // Configuración de la gráfica de Chart.js para mensajes por día
+                const ctxMessagesDay = document.getElementById('repoMessagesChart').getContext('2d');
+                const repoMessagesChart = new Chart(ctxMessagesDay, {
+                    type: 'line',
+                    data: {
+                        labels: labelsMessagesDay,
+                        datasets: [{
+                            label: 'Mensajes por Día',
+                            data: dataPointsMessagesDay,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: 'Mensajes por Día'
+                            }
+                        }
+                    }
+                });
+
+
+
 
                 const userConsumptionList = document.getElementById('userConsumptionList');
                 userConsumptionList.innerHTML = ''; // Limpia el contenedor antes de agregar nuevos elementos
