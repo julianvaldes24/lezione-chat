@@ -93,3 +93,42 @@ body {
 .selected{
   background-color: $user-card-bg;
 }
+
+.user-initial {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.progress-bar {
+  text-align: left;
+  width: 20px;
+}
+
+.progress {
+  width: 100px;
+}
+
+
+.chart-legend .badge {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  text-align: center;
+  color: white;
+}
+
+.chart-legend .text-danger {
+  color: #dc3545;
+}
+
+.chart-legend .text-success {
+  color: #28a745;
+}

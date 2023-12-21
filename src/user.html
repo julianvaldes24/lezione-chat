@@ -1,313 +1,426 @@
 <!DOCTYPE html>
 <html lang="en">
-    <!-- Head -->
-    @@include("partials/head/head.html")
+<!-- Head -->
+@@include("partials/head/head.html")
 
-    <body>
-        <!-- Layout -->
-        <div class="layout overflow-hidden">
-            <!-- Navigation -->
-            @@include("partials/navigation/navigation.html")
-            <!-- Navigation -->
+<body>
+    <!-- Layout -->
+    <div class="layout overflow-hidden">
+        <!-- Navigation -->
+        @@include("partials/navigation/navigation.html")
+        <!-- Navigation -->
 
-            <!-- Sidebar -->
-            @@include("partials/sidebar/sidebar.html")
-            <!-- Sidebar -->
+        <!-- Sidebar -->
+        @@include("partials/sidebar/sidebar.html")
+        <!-- Sidebar -->
 
-            <!-- Content -->
-            <main class="main is-visible" data-dropzone-area="">
-                <div class="container h-100">
+        <!-- Content -->
+        <main class="main is-visible" data-dropzone-area="">
+            <div class="container h-100">
+                <div class="d-flex flex-column h-100 position-relative">
+                    <!-- Header as Nav & Tabs -->
+                    <nav class="navbar navbar-expand-xl navbar-light border-bottom py-4 py-lg-7">
+                        <div class="container-fluid">
+                            <!-- Navbar toggler for mobile -->
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarChatContent" aria-controls="navbarChatContent"
+                                aria-expanded="false" aria-label="Toggle chat navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
 
-                    <div class="d-flex flex-column h-100 position-relative">
-                        <!-- Header as Nav & Tabs -->
-                        <nav class="navbar navbar-expand-xl navbar-light border-bottom py-4 py-lg-7">
-                            <div class="container-fluid">
-                                <!-- Navbar toggler for mobile -->
-                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#navbarChatContent" aria-controls="navbarChatContent"
-                                        aria-expanded="false" aria-label="Toggle chat navigation">
-                                    <span class="navbar-toggler-icon"></span>
-                                </button>
+                            <!-- Navbar Content -->
+                            <div class="collapse navbar-collapse justify-content-center" id="navbarChatContent">
+                                <ul class="nav nav-pills align-items-center flex-row">
+                                    <!-- General Tab -->
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="tab-general" href="#generalContent"
+                                            data-bs-toggle="tab" role="tab" aria-controls="generalContent"
+                                            aria-selected="true">General</a>
+                                    </li>
 
-                                <!-- Navbar Content -->
-                                <div class="collapse navbar-collapse justify-content-center" id="navbarChatContent">
-                                    <ul class="nav nav-pills align-items-center flex-row">
-                                        <!-- General Tab -->
-                                        <li class="nav-item">
-                                            <a class="nav-link active" id="tab-general" href="#generalContent"
-                                               data-bs-toggle="tab" role="tab" aria-controls="generalContent"
-                                               aria-selected="true">General</a>
-                                        </li>
+                                    <!-- Consumption Tab -->
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tab-consumption" href="#consumptionContent"
+                                            data-bs-toggle="tab" role="tab" aria-controls="consumptionContent"
+                                            aria-selected="false">Consumo</a>
+                                    </li>
 
-                                        <!-- Consumption Tab -->
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="tab-consumption" href="#consumptionContent"
-                                               data-bs-toggle="tab" role="tab" aria-controls="consumptionContent"
-                                               aria-selected="false">Consumo</a>
-                                        </li>
-
-                                        <!-- Security Tab -->
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="tab-security" href="#securityContent"
-                                               data-bs-toggle="tab" role="tab" aria-controls="securityContent"
-                                               aria-selected="false">Seguridad</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                    <!-- Security Tab -->
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tab-security" href="#securityContent"
+                                            data-bs-toggle="tab" role="tab" aria-controls="securityContent"
+                                            aria-selected="false">Seguridad</a>
+                                    </li>
+                                </ul>
                             </div>
-                        </nav>
-                        <!-- Header as Nav & Tabs -->
+                        </div>
+                    </nav>
+                    <!-- Header as Nav & Tabs -->
 
-                        <!-- Content -->
-                        <div class="chat-body hide-scrollbar flex-1 h-100">
-                            <div class="chat-body-inner h-100">
-                                <div class="tab-content d-flex flex-column h-100 justify-content-center">
+                    <!-- Content -->
+                    <div class="chat-body hide-scrollbar flex-1 h-100">
+                        <div class="chat-body-inner h-100">
+                            <div class="tab-content d-flex flex-column h-100 justify-content-center">
 
-                                    <!-- Tab Pane for General -->
-                                    <div class="tab-pane fade show active" id="generalContent" role="tabpanel"
-                                         aria-labelledby="tab-general">
-                                        <div class="container h-100 edit-user-panel">
+                                <!-- Tab Pane for General -->
+                                <div class="tab-pane fade show active" id="generalContent" role="tabpanel"
+                                    aria-labelledby="tab-general">
+                                    <div class="container h-100 edit-user-panel">
 
-                                            <div class="tab-pane fade show active" role="tabpanel">
+                                        <div class="tab-pane fade show active" role="tabpanel">
 
-                                                <div class="card border-0">
-                                                    <div class="profile" id="user-icon">
-                                                        <div class="profile-body p-0">
-                                                            <div class="avatar avatar-lg  rotating-border">
-                                                                <span class="avatar-text bg-white profile-icon">
-                                                                    <h5 class="user-abbr"></h5>
-                                                                </span>
-                                                            </div>
+                                            <div class="card border-0">
+                                                <div class="profile" id="user-icon">
+                                                    <div class="profile-body p-0">
+                                                        <div class="avatar avatar-lg  rotating-border">
+                                                            <span class="avatar-text bg-white profile-icon">
+                                                                <h5 class="user-abbr"></h5>
+                                                            </span>
                                                         </div>
                                                     </div>
+                                                </div>
 
+                                                <div class="card-body">
+                                                    <form autocomplete="off" id="user-form">
+                                                        <div class="row gy-6">
+                                                            <!-- Email -->
+                                                            <div class="col-6">
+                                                                <label for="user-email"
+                                                                    class="form-label text-muted">Email</label>
+                                                                <input type="email" class="form-control form-control-lg"
+                                                                    id="user-email" placeholder="Email">
+                                                            </div>
+
+                                                            <!-- Username -->
+                                                            <div class="col-6">
+                                                                <label for="username"
+                                                                    class="form-label text-muted">Username</label>
+                                                                <input type="text" class="form-control form-control-lg"
+                                                                    id="username" placeholder="Username">
+                                                            </div>
+
+                                                            <!-- First Name -->
+                                                            <div class="col-6">
+                                                                <label for="first-name"
+                                                                    class="form-label text-muted">First
+                                                                    Name</label>
+                                                                <input type="text" class="form-control form-control-lg"
+                                                                    id="first-name" placeholder="First Name">
+                                                            </div>
+
+                                                            <!-- Last Name -->
+                                                            <div class="col-6">
+                                                                <label for="last-name"
+                                                                    class="form-label text-muted">Last
+                                                                    Name</label>
+                                                                <input type="text" class="form-control form-control-lg"
+                                                                    id="last-name" placeholder="Last Name">
+                                                            </div>
+
+                                                            <!-- Is Active -->
+                                                            <div class="col-6">
+                                                                <div class="form-check form-switch">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        id="is-active">
+                                                                    <label class="form-check-label" for="is-active">Is
+                                                                        Active</label>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Is Staff -->
+                                                            <div class="col-6">
+                                                                <div class="form-check form-switch">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        id="is-staff">
+                                                                    <label class="form-check-label" for="is-staff">Is
+                                                                        Staff</label>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Last Login -->
+                                                            <div class="col-12">
+                                                                <label for="last-login"
+                                                                    class="form-label text-muted">Last
+                                                                    Login</label>
+                                                                <input type="datetime-local"
+                                                                    class="form-control form-control-lg"
+                                                                    id="last-login">
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Tab Pane for Consumption -->
+                                <div class="tab-pane fade" id="consumptionContent" role="tabpanel"
+                                    aria-labelledby="tab-consumption" style="padding-top: 50px;">
+                                    <div class="container">
+                                        <!-- Cards for Totals -->
+                                        <div class="row mb-3">
+                                            <div class="col-lg-4 mb-1">
+                                                <div class="card shadow-sm">
                                                     <div class="card-body">
-                                                        <form autocomplete="off" id="user-form">
-                                                            <div class="row gy-6">
-                                                                <!-- Email -->
-                                                                <div class="col-6">
-                                                                    <label for="user-email"
-                                                                           class="form-label text-muted">Email</label>
-                                                                    <input type="email"
-                                                                           class="form-control form-control-lg"
-                                                                           id="user-email" placeholder="Email">
-                                                                </div>
+                                                        <h5 class="card-title">Total de Dinero Consumido</h5>
+                                                        <p id="totalCost"></p>
+                                                        <!-- Aquí iría el total calculado -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 mb-3">
+                                                <div class="card shadow-sm">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Total de Conversaciones</h5>
+                                                        <p id="totalConversations"></p>
+                                                        <!-- Aquí iría el total calculado -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 mb-3">
+                                                <div class="card shadow-sm">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Total de Mensajes</h5>
+                                                        <p id="totalMessages"></p>
+                                                        <!-- Aquí iría el total calculado -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                                                <!-- Username -->
-                                                                <div class="col-6">
-                                                                    <label for="username" class="form-label text-muted">Username</label>
-                                                                    <input type="text"
-                                                                           class="form-control form-control-lg"
-                                                                           id="username" placeholder="Username">
-                                                                </div>
+                                        <!-- Charts and Data Tables -->
+                                        <div class="row">
+                                            <div class="col-lg-6 mb-3">
+                                                <div class="card shadow-sm">
+                                                    <!-- Iterar para cada conjunto de datos -->
+                                                    <div class="card-body">
+                                                        <div class="d-flex justify-content-between">
+                                                            <h5 class="card-title">Consumo (Dinero) por usuarios</h5>
+                                                            <!-- Campo select para las opciones -->
+                                                            <select class="form-select w-auto" id="selectOptions">
+                                                                <option value="dinero" selected>Dinero</option>
+                                                                <option value="conversaciones">Conversaciones</option>
+                                                                <option value="mensajes">Mensajes</option>
+                                                            </select>
+                                                        </div>
 
-                                                                <!-- First Name -->
-                                                                <div class="col-6">
-                                                                    <label for="first-name"
-                                                                           class="form-label text-muted">First
-                                                                        Name</label>
-                                                                    <input type="text"
-                                                                           class="form-control form-control-lg"
-                                                                           id="first-name" placeholder="First Name">
-                                                                </div>
 
-                                                                <!-- Last Name -->
-                                                                <div class="col-6">
-                                                                    <label for="last-name"
-                                                                           class="form-label text-muted">Last
-                                                                        Name</label>
-                                                                    <input type="text"
-                                                                           class="form-control form-control-lg"
-                                                                           id="last-name" placeholder="Last Name">
-                                                                </div>
+                                                        <!-- Contenedor para Consumo (Dinero) por usuario -->
+                                                        <div id="userConsumptionList" class="mt-3">
+                                                            <!-- Los datos de consumo por usuario se inyectarán aquí -->
+                                                        </div>
 
-                                                                <!-- Is Active -->
-                                                                <div class="col-6">
-                                                                    <div class="form-check form-switch">
-                                                                        <input class="form-check-input" type="checkbox"
-                                                                               id="is-active">
-                                                                        <label class="form-check-label" for="is-active">Is
-                                                                            Active</label>
-                                                                    </div>
-                                                                </div>
+                                                        <!-- Contenedor para Conversaciones por repositorio -->
+                                                        <div id="conversationsPerRepoList" class="mt-3"
+                                                            style="display: none;">
+                                                            <!-- Los datos de conversaciones por repositorio se inyectarán aquí -->
+                                                        </div>
 
-                                                                <!-- Is Staff -->
-                                                                <div class="col-6">
-                                                                    <div class="form-check form-switch">
-                                                                        <input class="form-check-input" type="checkbox"
-                                                                               id="is-staff">
-                                                                        <label class="form-check-label" for="is-staff">Is
-                                                                            Staff</label>
-                                                                    </div>
-                                                                </div>
+                                                        <!-- Contenedor para Mensajes por repositorio -->
+                                                        <div id="messagesPerRepoList" class="mt-3"
+                                                            style="display: none;">
+                                                            <!-- Los datos de mensajes por repositorio se inyectarán aquí -->
+                                                        </div>
+                                                    </div>
+                                                    <button class="btn btn-link text-decoration-none">Show all
+                                                        projects</button>
 
-                                                                <!-- Last Login -->
-                                                                <div class="col-12">
-                                                                    <label for="last-login"
-                                                                           class="form-label text-muted">Last
-                                                                        Login</label>
-                                                                    <input type="datetime-local"
-                                                                           class="form-control form-control-lg"
-                                                                           id="last-login">
+                                                </div>
+                                            </div>
+
+                                            <!-- Line Chart for Consumo (Dinero/Días) -->
+                                            <div class="col-lg-6 mb-3">
+                                                <div class="card shadow-sm">
+                                                    <div class="card-body">
+                                                        <div class="card-header">
+                                                            Consumo (Dinero) Días
+                                                            
+                                                        
+                                                            <!-- Selector para cambiar entre los diferentes tipos de datos -->
+                                                            <select class="form-select form-select-sm w-auto float-end" id="selectedValue">
+                                                                <option value="userSpending">Dinero</option>
+                                                                <option value="repoConversations">Conversaciones</option>
+                                                                <option value="repoMessages">Mensajes</option>
+                                                            </select>
+                                                    </div>
+
+                                                        <!-- Contenedores para cada tipo de dato -->
+                                                        <div id="userSpendingDiv" class="mt-3">
+                                                            <div
+                                                                class="d-flex justify-content-between align-items-center mb-3">
+                                                                <canvas id="consumoDiasChart"></canvas>
+                                                            </div>
+                                                            <!-- Spending data per user will be injected here -->
+                                                        </div>
+
+                                                        <div id="repoConversationsDiv" class="mt-3"
+                                                            style="display: none;">
+                                                            <!-- Conversations data per repository will be injected here -->
+                                                        </div>
+
+                                                        <div id="repoMessagesDiv" class="mt-3" style="display: none;">
+                                                            <!-- Messages data per repository will be injected here -->
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Star Ratings Cards -->
+
+                                        <!-- Example for one Star Rating card -->
+
+                                        <div class="col-lg-8 mb-3">
+                                            <div class="card shadow-sm">
+                                                <div class="card-body">
+                                                    <div class="row mb-3">
+                                                        <!-- Bloque para la valoración de 0 estrellas -->
+                                                        <div class="col-lg-4 mb-1">
+                                                            <div class="card text-center shadow-sm">
+                                                                <div class="card-body">
+                                                                    <p class="card-text fs-1" id="starRating0">--
+                                                                    </p>
                                                                 </div>
                                                             </div>
-                                                        </form>
+                                                        </div>
+
+                                                        <!-- Bloque para la valoración de 1 estrella -->
+                                                        <div class="col-lg-4 mb-1">
+                                                            <div class="card text-center shadow-sm" data-star="1 star">
+                                                                <div class="card-body">
+                                                                    <p class="card-text fs-1" id="starRating1">-</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Bloque para la valoración de 2 estrellas -->
+                                                        <div class="col-lg-4 mb-1">
+                                                            <div class="card text-center shadow-sm">
+                                                                <div class="card-body">
+                                                                    <p class="card-text fs-1" id="starRating2">-</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-3">
+                                                        <!-- Bloque para la valoración de 3 estrellas -->
+                                                        <div class="col-lg-4 mb-1">
+                                                            <div class="card text-center shadow-sm">
+                                                                <div class="card-body">
+                                                                    <p class="card-text fs-1" id="starRating3">-</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Bloque para la valoración de 4 estrellas -->
+                                                        <div class="col-lg-4 mb-1">
+                                                            <div class="card text-center shadow-sm">
+                                                                <div class="card-body">
+                                                                    <p class="card-text fs-1" id="starRating4">-</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-4 mb-1">
+                                                            <div class="card text-center shadow-sm">
+                                                                <div class="card-body">
+                                                                    <p class="card-text fs-1" id="starRating5">-</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- ... Repeat for other star ratings ... -->
+
                                     </div>
-
-                                    <!-- Tab Pane for Consumption -->
-                                    <div class="tab-pane fade" id="consumptionContent" role="tabpanel"
-                                         aria-labelledby="tab-consumption">
-                                        <div class="container py-4">
-                                            <!-- Cards for Totals -->
-                                            <div class="row mb-4">
-                                                <div class="col-lg-4 mb-3">
-                                                    <div class="card shadow-sm">
-                                                        <div class="card-body">
-                                                            <h5 class="card-title">Total de Dinero Consumido</h5>
-                                                            <!-- Aquí iría el total calculado -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 mb-3">
-                                                    <div class="card shadow-sm">
-                                                        <div class="card-body">
-                                                            <h5 class="card-title">Total de Conversaciones</h5>
-                                                            <!-- Aquí iría el total calculado -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 mb-3">
-                                                    <div class="card shadow-sm">
-                                                        <div class="card-body">
-                                                            <h5 class="card-title">Total de Mensajes</h5>
-                                                            <!-- Aquí iría el total calculado -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Charts and Data Tables -->
-                                            <div class="row">
-                                                <!-- Bar Chart for Consumo Repo -->
-                                                <div class="col-lg-6 mb-4">
-                                                    <div class="card shadow-sm">
-                                                        <div class="card-body">
-                                                            <h5 class="card-title">Consumo Repo</h5>
-                                                            <canvas id="barChartConsumoRepo"></canvas>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Line Chart for Consumo (Dinero/Días) -->
-                                                <div class="col-lg-6 mb-4">
-                                                    <div class="card shadow-sm">
-                                                        <div class="card-body">
-                                                            <h5 class="card-title">Consumo (Dinero/Días)</h5>
-                                                            <canvas id="lineChartConsumoDineroDias"></canvas>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Star Ratings Cards -->
-                                            <div class="row">
-                                                <!-- Example for one Star Rating card -->
-                                                <div class="col-lg-4 mb-4">
-                                                    <div class="card shadow-sm">
-                                                        <div class="card-body">
-                                                            <h5 class="card-title">0 Star</h5>
-                                                            <!-- Aquí iría la cantidad y el porcentaje -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- ... Repeat for other star ratings ... -->
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <!-- Tab Pane for Security -->
-                                    <div class="tab-pane fade" id="securityContent" role="tabpanel"
-                                         aria-labelledby="tab-security">
-                                        <h4>Security Content</h4>
-                                        <p>Content related to 'Seguridad' goes here.</p>
-                                        <!-- More content... -->
-                                    </div>
-
                                 </div>
                             </div>
-                        </div>
-                        <!-- Content -->
 
 
-                        <!-- Chat: Footer -->
-                        <div class="d-none chat-footer pb-3 pb-lg-7 position-absolute bottom-0 start-0">
-                            <!-- Chat: Files -->
-                            <div class="dz-preview bg-dark" id="dz-preview-row" data-horizontal-scroll="">
+                            <!-- Tab Pane for Security -->
+                            <div class="tab-pane fade" id="securityContent" role="tabpanel"
+                                aria-labelledby="tab-security">
+                                <h4>Security Content</h4>
+                                <p>Content related to 'Seguridad' goes here.</p>
+                                <!-- More content... -->
                             </div>
-                            <!-- Chat: Files -->
 
-                            <!-- Chat: Form -->
-                            <form class="chat-form rounded-pill bg-dark" data-emoji-form="">
-                                <div class="row align-items-center gx-0">
-                                    <div class="col-auto">
-                                        <a href="#" class="btn btn-icon btn-link text-body rounded-circle" id="dz-btn">
-                                            @@include("assets/img/icons/paperclip.svg")
-                                        </a>
-                                    </div>
-
-                                    <div class="col">
-                                        <div class="input-group">
-                                    <textarea class="form-control px-0" placeholder="Type your message..." rows="1"
-                                              data-emoji-input="" data-autosize="true"></textarea>
-
-                                            <a href="#" class="input-group-text text-body pe-0" data-emoji-btn="">
-                                                <span class="icon icon-lg">
-                                                    @@include("assets/img/icons/smile.svg")
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-auto">
-                                        <button class="btn btn-icon btn-primary rounded-circle ms-5">
-                                            @@include("assets/img/icons/send.svg")
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                            <!-- Chat: Form -->
                         </div>
-                        <!-- Chat: Footer -->
                     </div>
-
                 </div>
-            </main>
-            <!-- Content -->
+                <!-- Content -->
 
-        </div>
-        <!-- Layout -->
 
-        <!-- Load: Load -->
-        @@include("partials/loaders/load.html")
+                <!-- Chat: Footer -->
+                <div class="d-none chat-footer pb-3 pb-lg-7 position-absolute bottom-0 start-0">
+                    <!-- Chat: Files -->
+                    <div class="dz-preview bg-dark" id="dz-preview-row" data-horizontal-scroll="">
+                    </div>
+                    <!-- Chat: Files -->
 
-        <!-- Modal: Invite -->
-        @@include("partials/modal/invite.html")
+                    <!-- Chat: Form -->
+                    <form class="chat-form rounded-pill bg-dark" data-emoji-form="">
+                        <div class="row align-items-center gx-0">
+                            <div class="col-auto">
+                                <a href="#" class="btn btn-icon btn-link text-body rounded-circle" id="dz-btn">
+                                    @@include("assets/img/icons/paperclip.svg")
+                                </a>
+                            </div>
 
-        <!-- Modal: Profile -->
-        @@include("partials/modal/profile.html")
+                            <div class="col">
+                                <div class="input-group">
+                                    <textarea class="form-control px-0" placeholder="Type your message..." rows="1"
+                                        data-emoji-input="" data-autosize="true"></textarea>
 
-        <!-- Modal: User profile -->
-        @@include("partials/modal/user-profile.html")
+                                    <a href="#" class="input-group-text text-body pe-0" data-emoji-btn="">
+                                        <span class="icon icon-lg">
+                                            @@include("assets/img/icons/smile.svg")
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
 
-        <!-- Modal: Media Preview -->
-        @@include("partials/modal/media-preview.html")
+                            <div class="col-auto">
+                                <button class="btn btn-icon btn-primary rounded-circle ms-5">
+                                    @@include("assets/img/icons/send.svg")
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- Chat: Form -->
+                </div>
+                <!-- Chat: Footer -->
+            </div>
 
-        <!-- Scripts -->
-        @@include("partials/scripts/scripts.html")
-    </body>
+    </div>
+    </main>
+    <!-- Content -->
+
+    </div>
+    <!-- Layout -->
+
+    <!-- Load: Load -->
+    @@include("partials/loaders/load.html")
+
+    <!-- Modal: Invite -->
+    @@include("partials/modal/invite.html")
+
+    <!-- Modal: Profile -->
+    @@include("partials/modal/profile.html")
+
+    <!-- Modal: User profile -->
+    @@include("partials/modal/user-profile.html")
+
+    <!-- Modal: Media Preview -->
+    @@include("partials/modal/media-preview.html")
+
+    <!-- Scripts -->
+    @@include("partials/scripts/scripts.html")
+</body>
+
 </html>
