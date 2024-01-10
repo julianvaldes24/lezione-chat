@@ -120,12 +120,13 @@ function setSessionStorage(conversation) {
  * @returns {string} El HTML interno para la tarjeta.
  */
 function getCardInnerHTML(conversation) {
+    const formattedTitle = conversation.title.length > 20 ? conversation.title.substring(0, 20) + '...' : conversation.title;
     return `
         <div class="card-body">
             <div class="row gx-5">
                 <div class="col">
                     <div class="d-flex align-items-center">
-                        <h5 class="me-auto mb-0">${conversation.title}</h5>
+                        <h5 class="me-auto mb-0">${formattedTitle}</h5>
                         <span class="text-muted extra-small ms-2">${formatDate(conversation.created_at)}</span>
                     </div>
                 </div>
