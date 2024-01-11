@@ -109,7 +109,9 @@ function formatDate() {
 function createUsersSection(isStaff){
     if (isStaff == "true") {
         document.getElementById("users-section").style.display = "block";
+        document.getElementById("consumption-section").style.display = "block";
     }else{
         document.getElementById("users-section").style.display = "none";
+        document.getElementById("consumption-section").style.display = "none";
     }
 }

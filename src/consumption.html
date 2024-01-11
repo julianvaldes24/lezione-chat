@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Head -->
+@@include("partials/head/head.html")
+
+<body>
+    <!-- Layout -->
+    <div class="layout overflow-hidden">
+        <!-- Navigation -->
+        @@include("partials/navigation/navigation.html")
+        <!-- Navigation -->
+
+        <!-- Sidebar -->
+        @@include("partials/sidebar/sidebar.html")
+        <!-- Sidebar -->
+
+        <!-- Content -->
+        <main class="main is-visible" data-dropzone-area="">
+            <div class="container h-100">
+                <div class="d-flex flex-column h-100 position-relative">
+                    <!-- Header as Nav & Tabs -->
+                    <nav class="navbar navbar-expand-xl navbar-light border-bottom py-4 py-lg-7">
+                        <div class="container-fluid">
+                            <!-- Navbar toggler for mobile -->
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#generalNavbarChatContent" aria-controls="generalNavbarChatContent"
+                                aria-expanded="false" aria-label="Toggle chat navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+
+                            <!-- Navbar Content -->
+                            <div class="collapse navbar-collapse justify-content-center" id="generalNavbarChatContent">
+                                <ul class="nav nav-pills align-items-center flex-row">
+                                    <!-- Consumption Tab -->
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="general-tab-consumption" href="#generalConsumptionContent"
+                                            data-bs-toggle="tab" role="tab" aria-controls="generalConsumptionContent"
+                                            aria-selected="true">Consumo</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                    <!-- Header as Nav & Tabs -->
+
+                    <!-- Content -->
+                    <div class="chat-body hide-scrollbar flex-1 h-100">
+                        <div class="chat-body-inner h-100">
+                            <div class="tab-content d-flex flex-column h-100 justify-content-center">
+
+                                <!-- Tab Pane for Consumption -->
+                                <div class="tab-pane fade active show" id="generalConsumptionContent" role="tabpanel"
+                                    aria-labelledby="general-tab-consumption" style="padding-top: 50px;">
+                                    <div class="container">
+                                        <!-- Cards for Totals -->
+                                        <div class="row mb-3">
+                                            <div class="col-lg-4 mb-1">
+                                                <div class="card shadow-sm">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Total de Dinero Consumido</h5>
+                                                        <p id="generalTotalCost"></p>
+                                                        <!-- Aquí iría el total calculado -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 mb-3">
+                                                <div class="card shadow-sm">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Total de Conversaciones</h5>
+                                                        <p id="generalTotalConversations"></p>
+                                                        <!-- Aquí iría el total calculado -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 mb-3">
+                                                <div class="card shadow-sm">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Total de Mensajes</h5>
+                                                        <p id="generalTotalMessages"></p>
+                                                        <!-- Aquí iría el total calculado -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Charts and Data Tables -->
+                                        <div class="row">
+                                            <div class="col-lg-6 mb-3">
+                                                <div class="card shadow-sm">
+                                                    <!-- Iterar para cada conjunto de datos -->
+                                                    <div class="card-body">
+                                                        <div class="d-flex justify-content-between">
+                                                            <h5 class="card-title">Consumo (Dinero) por usuarios</h5>
+                                                            <!-- Campo select para las opciones -->
+                                                            <select class="form-select w-auto" id="generalSelectOptions">
+                                                                <option value="dinero" selected>Dinero</option>
+                                                                <option value="conversaciones">Conversaciones</option>
+                                                                <option value="mensajes">Mensajes</option>
+                                                            </select>
+                                                        </div>
+
+
+                                                        <!-- Contenedor para Consumo (Dinero) por usuario -->
+                                                        <div id="generalUserConsumptionList" class="mt-3">
+                                                            <!-- Los datos de consumo por usuario se inyectarán aquí -->
+                                                        </div>
+
+                                                        <!-- Contenedor para Conversaciones por repositorio -->
+                                                        <div id="generalConversationsPerRepoList" class="mt-3"
+                                                            style="display: none;">
+                                                            <!-- Los datos de conversaciones por repositorio se inyectarán aquí -->
+                                                        </div>
+
+                                                        <!-- Contenedor para Mensajes por repositorio -->
+                                                        <div id="generalMessagesPerRepoList" class="mt-3"
+                                                            style="display: none;">
+                                                            <!-- Los datos de mensajes por repositorio se inyectarán aquí -->
+                                                        </div>
+                                                    </div>
+                                                    <button class="btn btn-link text-decoration-none">Show all
+                                                        projects</button>
+
+                                                </div>
+                                            </div>
+
+                                            <!-- Line Chart for Consumo (Dinero/Días) -->
+                                            <div class="col-lg-6 mb-3">
+                                                <div class="card shadow-sm">
+                                                    <div class="card-body">
+                                                        <div class="card-header">
+                                                            Consumo (Dinero) Días
+                                                            
+                                                        
+                                                            <!-- Selector para cambiar entre los diferentes tipos de datos -->
+                                                            <select class="form-select form-select-sm w-auto float-end" id="generalSelectedValue">
+                                                                <option value="userSpending">Dinero</option>
+                                                                <option value="repoConversations">Conversaciones</option>
+                                                                <option value="repoMessages">Mensajes</option>
+                                                            </select>
+                                                    </div>
+
+                                                        <!-- Contenedores para cada tipo de dato -->
+                                                        <div id="generalUserSpendingDiv" class="mt-3">
+                                                            <div
+                                                                class="d-flex justify-content-between align-items-center mb-3">
+                                                                <canvas id="generalConsumptionDaysChart"></canvas>
+                                                            </div>
+                                                            <!-- Spending data per user will be injected here -->
+                                                        </div>
+
+                                                        <div id="generalRepoConversationsDiv" class="mt-3" style="display: none;">
+                                                            <canvas id="generalRepoConversationsChart"></canvas>
+                                                            <!-- Conversations data per repository will be injected here -->
+                                                        </div>
+
+                                                        <div id="generalRepoMessagesDiv" class="mt-3" style="display: none;">
+                                                            <canvas id="generalRepoMessagesChart"></canvas>
+                                                            <!-- Messages data per repository will be injected here -->
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Star Ratings Cards -->
+
+                                        <!-- Example for one Star Rating card -->
+
+                                        <div class="col-lg-8 mb-3">
+                                            <div class="card shadow-sm">
+                                                <div class="card-body">
+                                                    <div class="row mb-3">
+                                                        <!-- Bloque para la valoración de 0 estrellas -->
+                                                        <div class="col-lg-4 mb-1">
+                                                            <div class="card text-center shadow-sm">
+                                                                <div class="card-body">
+                                                                    <p class="card-text fs-1" id="generalStarRating0">--
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Bloque para la valoración de 1 estrella -->
+                                                        <div class="col-lg-4 mb-1">
+                                                            <div class="card text-center shadow-sm" data-star="1 star">
+                                                                <div class="card-body">
+                                                                    <p class="card-text fs-1" id="generalStarRating1">-</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Bloque para la valoración de 2 estrellas -->
+                                                        <div class="col-lg-4 mb-1">
+                                                            <div class="card text-center shadow-sm">
+                                                                <div class="card-body">
+                                                                    <p class="card-text fs-1" id="generalStarRating2">-</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-3">
+                                                        <!-- Bloque para la valoración de 3 estrellas -->
+                                                        <div class="col-lg-4 mb-1">
+                                                            <div class="card text-center shadow-sm">
+                                                                <div class="card-body">
+                                                                    <p class="card-text fs-1" id="generalStarRating3">-</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Bloque para la valoración de 4 estrellas -->
+                                                        <div class="col-lg-4 mb-1">
+                                                            <div class="card text-center shadow-sm">
+                                                                <div class="card-body">
+                                                                    <p class="card-text fs-1" id="generalStarRating4">-</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-4 mb-1">
+                                                            <div class="card text-center shadow-sm">
+                                                                <div class="card-body">
+                                                                    <p class="card-text fs-1" id="generalStarRating5">-</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- ... Repeat for other star ratings ... -->
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Content -->
+
+
+                <!-- Chat: Footer -->
+                <div class="d-none chat-footer pb-3 pb-lg-7 position-absolute bottom-0 start-0">
+                    <!-- Chat: Files -->
+                    <div class="dz-preview bg-dark" id="dz-preview-row" data-horizontal-scroll="">
+                    </div>
+                    <!-- Chat: Files -->
+
+                    <!-- Chat: Form -->
+                    <form class="chat-form rounded-pill bg-dark" data-emoji-form="">
+                        <div class="row align-items-center gx-0">
+                            <div class="col-auto">
+                                <a href="#" class="btn btn-icon btn-link text-body rounded-circle" id="dz-btn">
+                                    @@include("assets/img/icons/paperclip.svg")
+                                </a>
+                            </div>
+
+                            <div class="col">
+                                <div class="input-group">
+                                    <textarea class="form-control px-0" placeholder="Type your message..." rows="1"
+                                        data-emoji-input="" data-autosize="true"></textarea>
+
+                                    <a href="#" class="input-group-text text-body pe-0" data-emoji-btn="">
+                                        <span class="icon icon-lg">
+                                            @@include("assets/img/icons/smile.svg")
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-auto">
+                                <button class="btn btn-icon btn-primary rounded-circle ms-5">
+                                    @@include("assets/img/icons/send.svg")
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- Chat: Form -->
+                </div>
+                <!-- Chat: Footer -->
+            </div>
+
+    </div>
+    </main>
+    <!-- Content -->
+
+    </div>
+    <!-- Layout -->
+
+    <!-- Load: Load -->
+    @@include("partials/loaders/load.html")
+
+    <!-- Modal: Invite -->
+    @@include("partials/modal/invite.html")
+
+    <!-- Modal: Profile -->
+    @@include("partials/modal/profile.html")
+
+    <!-- Modal: User profile -->
+    @@include("partials/modal/user-profile.html")
+
+    <!-- Modal: Media Preview -->
+    @@include("partials/modal/media-preview.html")
+
+    <!-- Scripts -->
+    @@include("partials/scripts/scripts.html")
+</body>
+
+</html>

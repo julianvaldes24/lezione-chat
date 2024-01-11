@@ -30,3 +30,6 @@ import './main/main';
 import './main/user-info';
 import './main/users';
 import './main/users-dashboard';
+
+//Dashboard
+import './main/dashboard';
