@@ -54,7 +54,7 @@ function buildChatPayload() {
     const model = document.getElementById('model').value;
     const temperature = document.getElementById('temperature').value;
     const text = document.getElementById('text').value;
-    const memoryChat = document.getElementById('new-chat-options-1').checked ? 'memory_chat' : 'normal_chat';
+    const memoryChat = document.getElementById('new-chat-options-1').checked ? 'memory_chat' : 'qa';
 
     return {
         text: text,
