@@ -18,7 +18,25 @@ function initChatForm() {
 
     // Agrega un manejador de eventos al formulario
     form.addEventListener('submit', handleFormSubmit);
+
+    setupTemperatureRange();
 }
+
+/**
+ * Configura el rango de temperatura.
+ */
+function setupTemperatureRange() {
+    const temperatureRange = document.getElementById('temperature');
+    const temperatureValue = document.getElementById('temperatureValue');
+
+    function updateTemperatureValue() {
+        temperatureValue.textContent = temperatureRange.value;
+    }
+
+    temperatureRange.addEventListener('input', updateTemperatureValue);
+    updateTemperatureValue();
+} 
+
 
 /**
  * Envía el formulario de chat.
