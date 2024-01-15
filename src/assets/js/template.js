@@ -25,6 +25,7 @@ import './main/sidebar-chat';
 import './main/chat-message';
 import './main/start-chat';
 import './main/main';
+import './main/edit-chat-title';
 
 //User
 import './main/user-info';

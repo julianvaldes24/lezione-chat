@@ -132,3 +132,18 @@ body {
 .chart-legend .text-success {
   color: #28a745;
 }
+
+.full-width{
+  width: 100%;
+}
+.flex-title{
+  display: flex;
+}
+.edit-title-btn{
+  width: 40%;
+  margin-left: 20px;
+  svg{
+    width: 20px;
+    height: 20px;
+  }
+}

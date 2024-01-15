@@ -406,3 +406,5 @@ async function sendMessage(conversationId, messageText) {
         console.error('Error al enviar mensaje:', error);
     }
 }
+
+export {getConversationId, getFetchOptions}
