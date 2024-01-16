@@ -3,6 +3,7 @@ import {urlBaseEndpoint} from './vars.js';
 import {redirectToLogin} from './common.js';
 import {md} from './common.js';
 import {checkAuthToken} from './common.js';
+import { fetchEventSource } from '@microsoft/fetch-event-source';
 
 document.addEventListener('DOMContentLoaded', async function () {
     const conversationId = getConversationId();
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         console.error('Error:', error);
     }
 });
-
+  
 /**
  * Obtiene el identificador de la conversación de la URL de la página.
  *
@@ -111,6 +112,48 @@ function handleFetchError(response) {
 }
 
 /**
+ *  Inicia una conexión utilizando EventSource para recibir eventos en tiempo real.
+ * @param {string} conversationId - Identificador único de la conversación.
+ * @param {string} messageText - Texto del mensaje enviado a la conversación. 
+ */
+async function startEventSource(conversationId, messageText) {
+    const endpointURL = 'http://34.232.199.165:8089/chat/stream_log';
+
+    try {
+        await fetchEventSource(endpointURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'text/event-stream',
+            },
+            body: JSON.stringify({
+                input: {
+                    question: messageText,
+                    chat_history: [],
+                },
+                config: {
+                    metadata: {
+                        conversation_id: conversationId,
+                    },
+                },
+                include_names: ['FindDocs'],
+            }),
+            onmessage(event) {
+                // Procesar el evento aquí
+                console.log('Mensaje recibido:', event.data);
+            },
+            onerror(error) {
+                // Manejar errores aquí
+                console.error('Error en la conexión:', error);
+            },
+        });
+    } catch (error) {
+        console.error('Error al establecer la conexión:', error);
+    }
+}
+
+
+/**
  * Actualiza el título de la conversación en la interfaz de usuario.
  * @param {string} conversation_id - El identificador de la conversación.
  *
@@ -133,7 +176,6 @@ function renderTitleConversation(conversation_id) {
         console.error('No se encontró el elemento del título del chat.');
     }
 }
-
 
 /**
  * Renderiza los mensajes de chat en la interfaz de usuario y almacena información del último mensaje.
@@ -354,7 +396,7 @@ function initializeChatForm(conversationId) {
 
         addMessageAndScroll(userMessageData);
         messageInput.value = '';
-
+        startEventSource(conversationId, messageText);
         sendMessage(conversationId, messageText);
     });
 }
