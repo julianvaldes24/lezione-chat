@@ -8,6 +8,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@microsoft/fetch-event-source": "^2.0.1",
     "@popperjs/core": "^2.11.5",
     "autosize": "^5.0.1",
     "bootstrap": "^5.1.3",
