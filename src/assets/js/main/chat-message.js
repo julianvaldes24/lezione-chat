@@ -5,6 +5,8 @@ import {md} from './common.js';
 import {checkAuthToken} from './common.js';
 import { fetchEventSource } from '@microsoft/fetch-event-source';
 
+let streamedMessageElement = null; 
+
 document.addEventListener('DOMContentLoaded', async function () {
     const conversationId = getConversationId();
     if (!conversationId) {
@@ -118,7 +120,8 @@ function handleFetchError(response) {
  */
 async function startEventSource(conversationId, messageText) {
     const endpointURL = 'http://34.232.199.165:8089/chat/stream_log';
-
+    let accumulatedMessage = '';
+    
     try {
         await fetchEventSource(endpointURL, {
             method: 'POST',
@@ -139,11 +142,25 @@ async function startEventSource(conversationId, messageText) {
                 include_names: ['FindDocs'],
             }),
             onmessage(event) {
-                // Procesar el evento aquí
-                console.log('Mensaje recibido:', event.data);
+                console.log('event:', event);
+                if (event.data !== '') {
+                    const data = JSON.parse(event.data);
+                    if (Array.isArray(data.ops)) {
+                        data.ops.forEach(op => {
+                            if (op.op === 'add' && op.path === '/streamed_output/-') {
+                                accumulatedMessage += op.value;
+                            }
+                        });
+            
+                        if (accumulatedMessage) {
+                            addStreamedMessageToUI(accumulatedMessage); 
+                        }
+                    }
+                }else if(event.event === 'end'){
+                    sendMessage(conversationId, messageText, accumulatedMessage);
+                }
             },
             onerror(error) {
-                // Manejar errores aquí
                 console.error('Error en la conexión:', error);
             },
         });
@@ -241,6 +258,29 @@ function storeLastMessageData(lastMessage) {
 }
 
 /**
+ * Agrega un mensaje recibido por trama al chat en la interfaz de usuario y
+ * actualiza el contenido del mensaje recibido.
+ *
+ * @param {string} messageText - Texto del mensaje recibido por trama.
+ */
+function addStreamedMessageToUI(messageText) {
+    if (!streamedMessageElement) {
+        // Si el elemento del mensaje aún no existe, créalo
+        streamedMessageElement = createStreamedMessageElement();
+    }
+
+    // Actualiza el contenido del mensaje con el nuevo texto
+    if (streamedMessageElement) {
+        const messageTextElement = streamedMessageElement.querySelector('.message-text');
+        messageTextElement.innerHTML = md.render(messageText); // Actualiza el contenido del mensaje
+    }
+
+    const chatBody = document.querySelector('.chat-body-inner');
+    chatBody.appendChild(streamedMessageElement); // Agrega o actualiza el mensaje en el chat
+    scrollToBottom();
+}
+
+/**
  * Crea un elemento HTML para un mensaje de chat.
  *
  * @param {Object} message - Objeto de mensaje que incluye detalles como el texto y el remitente.
@@ -280,6 +320,34 @@ function createMessageElement(message) {
             </div>
         </div>
     `;
+    return messageDiv;
+}
+
+/**
+ * Crea un elemento HTML para un mensaje recibido por trama.
+ *
+ * @returns {HTMLElement} Elemento HTML representando el mensaje recibido por trama.
+ */
+function createStreamedMessageElement() {
+    let messageDiv = document.createElement('div');
+    messageDiv.className = 'message message-in'; // Puedes personalizar la clase según tus necesidades
+
+    let formattedTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    let avatarHTML = '';
+    
+    messageDiv.innerHTML = `
+        ${avatarHTML}
+        <div class="message-inner">
+            <div class="message-body">
+                <div class="message-content">
+                    <div class="message-text"></div>
+                </div>
+            </div>
+            <div class="message-footer">
+                <span class="extra-small text-muted">${formattedTime}</span>
+            </div>
+        </div>`;
     return messageDiv;
 }
 
@@ -397,19 +465,26 @@ function initializeChatForm(conversationId) {
         addMessageAndScroll(userMessageData);
         messageInput.value = '';
         startEventSource(conversationId, messageText);
-        sendMessage(conversationId, messageText);
+        streamedMessageElement = '';
     });
 }
 
 /**
- * Envía un mensaje a la API y lo agrega al chat.
+ * Envía un mensaje a la API para ser procesado y almacenado en la conversación
  *
  * @param {string} conversationId - Identificador de la conversación.
- * @param {string} messageText - Texto del mensaje a enviar.
+ * @param {string} messageText - Texto del mensaje enviado por el usuario.
+ * @param {string} messageAi - Texto del mensaje enviado por la IA.
  */
-async function sendMessage(conversationId, messageText) {
-    const payload = {
-        text: messageText,
+async function sendMessage(conversationId, messageText, messageAi) {
+
+    const messagesToSend = {
+        user_msg: {
+            text: messageText
+        },
+        ai_msg: {
+            text: messageAi
+        },
         model_embeddings: sessionStorage.getItem('lastMessageModelEmbeddings') || 'text-embedding-ada-002',
         chat_type: sessionStorage.getItem('lastMessageChatType') || 'memory_chat',
         repo: sessionStorage.getItem('lastMessageRepo') || 'sportline-magento',
@@ -433,19 +508,14 @@ async function sendMessage(conversationId, messageText) {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${authToken}`
             },
-            body: JSON.stringify(payload)
+            body: JSON.stringify(messagesToSend)
         });
 
         if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        if (data.ai_message) {
-            addMessageAndScroll(data.ai_message);
+            throw new Error(`HTTP error al enviar los mensajes! Status: ${response.status}`);
         }
     } catch (error) {
-        console.error('Error al enviar mensaje:', error);
+        console.error('Error al enviar mensajess:', error);
     }
 }
 
