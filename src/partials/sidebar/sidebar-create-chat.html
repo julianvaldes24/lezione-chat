@@ -25,7 +25,7 @@
                                     </span>
 
                                     <div
-                                        class="badge badge-lg badge-circle bg-primary border-outline position-absolute bottom-0 end-0">
+                                            class="badge badge-lg badge-circle bg-primary border-outline position-absolute bottom-0 end-0">
                                         @@include("../../assets/img/icons/plus.svg")
                                     </div>
 
@@ -36,58 +36,238 @@
                         </div>
 
                         <div class="card-body">
-                            <form autocomplete="off" id="new_question_id">
-                                <div class="row gy-6">
-                                    <div class="col-12">
-                                        <select class="form-select form-select-lg mb-3" id="team"
-                                            aria-label=".form-select-lg example">
-                                            <option selected>Select a Team</option>
-                                            <option value="solutions">Solutions</option>
-                                            <option value="false">Coming soon</option>
-                                        </select>
+                            <form autocomplete="off" id="formNewClassId">
+                                <div class="accordion accordion-flush" id="accordionNewClassId">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="generalHeadingSectionId">
+                                            <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#generalCollapseSectionId"
+                                                    aria-expanded="false" aria-controls="generalCollapseSectionId">
+                                                General
+                                            </button>
+                                        </h2>
+                                        <div id="generalCollapseSectionId" class="accordion-collapse collapse show"
+                                             aria-labelledby="generalHeadingSectionId"
+                                             data-bs-parent="#accordionNewClassId">
+                                            <div class="accordion-body">
+                                                <div class="row gy-6">
+                                                    <div class="col-12">
+                                                        <select class="form-select form-select-lg mb-3"
+                                                                id="selectAreaOfKnowledgeId"
+                                                                aria-label=".form-select-lg">
+                                                            <option selected>Area de Conocimiento</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <select class="form-select form-select-lg mb-3"
+                                                                id="selectSubjectId"
+                                                                aria-label=".form-select-lg example">
+                                                            <option selected>Asignatura</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <select class="form-select form-select-lg mb-3"
+                                                                id="selectGradeId"
+                                                                aria-label=".form-select-lg example">
+                                                            <option selected>Grado</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <select class="form-select form-select-lg mb-3"
+                                                                id="selectApproachId"
+                                                                aria-label=".form-select-lg example">
+                                                            <option selected>Enfoque Pedagogico</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label for="inputSessionId" class="form-label">Número
+                                                            <de></de>
+                                                            sesiones: <span
+                                                                    id="labelSessionId">1</span></label>
+                                                        <input type="range" class="form-range" min="1" max="10" step="1"
+                                                               value="1"
+                                                               id="inputSessionId">
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label for="inputDurationId" class="form-label">Duracion de la
+                                                            sesion: <span
+                                                                    id="labelDuration">1</span></label>
+                                                        <input type="range" class="form-range" min="1" max="4" step="1"
+                                                               value="1"
+                                                               id="inputDurationId">
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <select class="form-select form-select-lg mb-3"
+                                                                id="inputDurationUnitId"
+                                                                aria-label=".form-select-lg example">
+                                                            <option value="HOURS" selected>Hora(s)</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-12">
-                                        <select class="form-select form-select-lg mb-3" id="repo"
-                                            aria-label=".form-select-lg example">
-                                            <option selected>Select a Repo</option>
-                                            <option value="saas-ms-user">saas-ms-user</option>
-                                            <option value="saas-ms-catalog">saas-ms-catalog</option>
-                                            <option value="saas-ms-client">saas-ms-client</option>
-                                            <option value="saas-ms-library">saas-ms-library</option>
-                                            <option value="saas-ms-rule">saas-ms-rule</option>
-                                            <option value="saas-ms-sale">saas-ms-sale</option>
-                                            <option value="saas-ms-stock">saas-ms-stock</option>
-                                            <option value="saas-ms-utilities">saas-ms-utilities</option>
-                                            <option value="sportline-magento">sportline-magento</option>
-                                            <option value="false">Coming soon</option>
-                                        </select>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="themeHeadingSectionId">
+                                            <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#themeCollapseSectionId"
+                                                    aria-expanded="false" aria-controls="themeCollapseSectionId">
+                                                Tema y Objetivos
+                                            </button>
+                                        </h2>
+                                        <div id="themeCollapseSectionId" class="accordion-collapse collapse"
+                                             aria-labelledby="themeHeadingSectionId"
+                                             data-bs-parent="#accordionNewClassId">
+                                            <div class="accordion-body">
+                                                <div class="row gy-6">
+                                                    <div class="col-12">
+                                                        <div class="form-floating">
+                                                        <textarea class="form-control"
+                                                                  id="textareaThemeId" rows="4" data-autosize="true"
+                                                                  style="min-height: 100px;"></textarea>
+                                                            <label for="textareaThemeId">Titulo de la clase</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-floating">
+                                                        <textarea class="form-control" id="textareaObjectiveId" rows="4"
+                                                                  data-autosize="true"
+                                                                  style="min-height: 100px;"></textarea>
+                                                            <label for="textareaObjectiveId">Objetivo</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-floating">
+                                                        <textarea class="form-control" id="textareaObjectiveSpecificId"
+                                                                  rows="4"
+                                                                  data-autosize="true"
+                                                                  style="min-height: 100px;"></textarea>
+                                                            <label for="textareaObjectiveSpecificId">Objetivos
+                                                                Especificos</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-12">
-                                        <select class="form-select form-select-lg mb-3" id="provider"
-                                            aria-label=".form-select-lg example">
-                                            <option selected>Select a Provider</option>
-                                            <option value="openai">Open AI</option>
-                                            <option value="false">Coming soon</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-12">
-                                        <select class="form-select form-select-lg mb-3" id="model"
-                                            aria-label=".form-select-lg example">
-                                            <option selected>Select a Model</option>
-                                            <option value="gpt-4-1106-preview">GPT-4 Turbo with 128K</option>
-                                            <option value="false">Coming soon</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="customRange3" class="form-label">Temperature: <span id="temperatureValue">0</span></label>
-                                        <input type="range" class="form-range" min="0" max="2" step="0.1"
-                                            id="temperature">
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-floating">
-                                            <textarea class="form-control" placeholder="Question" id="text" rows="8"
-                                                data-autosize="true" style="min-height: 100px;"></textarea>
-                                            <label for="floatingTextarea">Your question?</label>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="locationHeadingSectionId">
+                                            <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#locationCollapseSectionId"
+                                                    aria-expanded="false" aria-controls="locationCollapseSectionId">
+                                                Ubicacion y Materiales
+                                            </button>
+                                        </h2>
+                                        <div id="locationCollapseSectionId" class="accordion-collapse collapse"
+                                             aria-labelledby="locationHeadingSectionId"
+                                             data-bs-parent="#accordionNewClassId">
+                                            <div class="accordion-body">
+                                                <div class="row gy-6">
+
+                                                    <div class="col-12">
+                                                        <label for="selectLocationId">Ubicación</label>
+                                                        <select class="form-select" multiple
+                                                                aria-label="multiple select"
+                                                                id="selectLocationId">
+                                                            <option value="Salon de clases" selected>Salón de clases
+                                                            </option>
+                                                            <option value="Patio">Patio</option>
+                                                            <option value="Biblioteca">Biblioteca</option>
+                                                            <option value="Parque">Parque</option>
+                                                            <option value="Laboratorio de ciencias">Laboratorio de
+                                                                ciencias
+                                                            </option>
+                                                            <option value="Aula de informática">Aula de informática
+                                                            </option>
+                                                            <option value="Cancha deportiva">Cancha deportiva</option>
+                                                            <option value="Teatro">Teatro</option>
+                                                            <option value="Sala de música">Sala de música</option>
+                                                            <option value="Sala de arte">Sala de arte</option>
+                                                            <option value="Jardín botánico">Jardín botánico</option>
+                                                            <option value="Cafetería">Cafetería</option>
+                                                            <option value="Gimnasio">Gimnasio</option>
+                                                            <option value="Sala de meditación">Sala de meditación
+                                                            </option>
+                                                            <option value="Rincón de lectura al aire libre">Rincón de
+                                                                lectura al aire
+                                                                libre
+                                                            </option>
+                                                            <option value="Laboratorio de física">Laboratorio de
+                                                                física
+                                                            </option>
+                                                            <option value="Laboratorio de química">Laboratorio de
+                                                                química
+                                                            </option>
+                                                            <option value="Sala de exposiciones">Sala de exposiciones
+                                                            </option>
+                                                            <option value="Huerto escolar">Huerto escolar</option>
+                                                            <option value="Piscina">Piscina</option>
+                                                            <option value="Otro">Otro</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-floating">
+                                                            <textarea class="form-control" id="textareaLocationId"
+                                                                      data-autosize="true" rows="3"
+                                                                      style="min-height: 100px;"></textarea>
+                                                            <label for="textareaLocationId">Ubicaciones</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label for="selectMaterialId">Materiales</label>
+                                                        <select class="form-select" multiple
+                                                                aria-label="multiple select"
+                                                                id="selectMaterialId">
+                                                            <option value="videos">Videos</option>
+                                                            <option value="presentaciones">Presentaciones</option>
+                                                            <option value="juegos educativos">Juegos Educativos</option>
+                                                            <option value="libros de texto">Libros de Texto</option>
+                                                            <option value="pizarras interactivas">Pizarras
+                                                                Interactivas
+                                                            </option>
+                                                            <option value="mapas">Mapas</option>
+                                                            <option value="kits de ciencias">Kits de Ciencias</option>
+                                                            <option value="modelos anatómicos">Modelos Anatómicos
+                                                            </option>
+                                                            <option value="calculadoras">Calculadoras</option>
+                                                            <option value="materiales de arte">Materiales de Arte
+                                                            </option>
+                                                            <option value="instrumentos musicales">Instrumentos
+                                                                Musicales
+                                                            </option>
+                                                            <option value="cuentos y novelas">Cuentos y Novelas</option>
+                                                            <option value="materiales reciclables">Materiales
+                                                                Reciclables
+                                                            </option>
+                                                            <option value="computadoras o tablets">Computadoras o
+                                                                Tablets
+                                                            </option>
+                                                            <option value="software educativo">Software Educativo
+                                                            </option>
+                                                            <option value="cámaras">Cámaras</option>
+                                                            <option value="experimentos de laboratorio">Experimentos de
+                                                                Laboratorio
+                                                            </option>
+                                                            <option value="equipos de deporte">Equipos de Deporte
+                                                            </option>
+                                                            <option value="globos terráqueos">Globos Terráqueos</option>
+                                                            <option value="papelógrafos">Papelógrafos</option>
+                                                            <option value="Otro">Otro</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-floating">
+                                                            <textarea class="form-control"
+                                                                      id="textareaMaterialId"
+                                                                      rows="8"
+                                                                      data-autosize="true"
+                                                                      style="min-height: 100px;"></textarea>
+                                                            <label for="textareaMaterialId">Materiales</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -98,7 +278,7 @@
                     <!-- Options -->
                     <div class="mt-8">
                         <div class="d-flex align-items-center mb-4 px-6">
-                            <small class="text-muted me-auto">Options</small>
+                            <small class="text-muted me-auto">Avanzado</small>
                         </div>
 
                         <div class="card border-0">
@@ -110,14 +290,16 @@
                                         </div>
                                     </div>
                                     <div class="col">
-                                        <h5>Memory Chat</h5>
-                                        <p>Memory Chat, More context</p>
+                                        <h5>Proveedor IA</h5>
+                                        <!--<p>Memory Chat, More context</p>-->
                                     </div>
                                     <div class="col-auto align-self-center">
                                         <div class="form-check form-switch ps-0">
-                                            <input class="form-check-input" type="checkbox" id="new-chat-options-1"
-                                                checked>
-                                            <label class="form-check-label" for="new-chat-options-1"></label>
+                                            <select class="form-select" aria-label="multiple select"
+                                                    id="selectProviderId">
+                                                <option value="gpt">GPT</option>
+                                                <option value="claude">Claude</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -133,8 +315,8 @@
 
     <!-- Button -->
     <div class="container mt-n4 mb-8 position-relative">
-        <button class="btn btn-lg btn-primary w-100 d-flex align-items-center" type="button" id="start-chat-button">
-            Start chat
+        <button class="btn btn-lg btn-primary w-100 d-flex align-items-center" type="button" id="createClassButtonId">
+            Crear Plan de Clase
             <span class="icon ms-auto">
                 @@include("../../assets/img/icons/chevron-right.svg")
             </span>

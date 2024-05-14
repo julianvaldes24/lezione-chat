@@ -4,6 +4,7 @@ import 'autosize';
 import 'zoom-vanilla.js';
 import 'emoji-button';
 import 'dropzone';
+import 'axios';
 
 // Theme
 import './template/toggle-offcanvas';

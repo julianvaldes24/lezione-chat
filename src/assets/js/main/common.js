@@ -162,16 +162,38 @@ function storeLoginDetails(data) {
 }
 
 //log-out
-function logout(){
+function logout() {
     let colorScheme = localStorage.getItem('color-scheme');
     localStorage.clear();
     sessionStorage.clear();
-    if(colorScheme !== null){
+    if (colorScheme !== null) {
         localStorage.setItem('color-scheme', colorScheme);
     }
     redirectToLogin();
 }
 
+function removeAllOptions(selectElement) {
+    while (selectElement.options.length > 0) {
+        selectElement.remove(0);
+    }
+}
+
+function updateTextareaWithSelectedOptions(selectElement, textareaElement) {
+    const selectedOptions = Array.from(selectElement.selectedOptions)
+        .map(option => option.text); // Obtener el texto de cada opción seleccionada
+    textareaElement.value = selectedOptions.join(', '); // Unir con coma y espacio y asignar al textarea
+}
+
 
 // Exportaciones nombradas de las funciones para su uso en otros módulos.
-export {hideLoader, showLoader, redirectToLogin, checkAuthToken, md, storeLoginDetails, logout};
+export {
+    hideLoader,
+    showLoader,
+    redirectToLogin,
+    checkAuthToken,
+    md,
+    storeLoginDetails,
+    logout,
+    removeAllOptions,
+    updateTextareaWithSelectedOptions
+};

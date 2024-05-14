@@ -90,7 +90,8 @@ body {
   position: relative;
   z-index: 1; /* Asegurarse que el avatar esté por encima del borde giratorio */
 }
-.selected{
+
+.selected {
   background-color: $user-card-bg;
 }
 
@@ -133,17 +134,104 @@ body {
   color: #28a745;
 }
 
-.full-width{
+.full-width {
   width: 100%;
 }
-.flex-title{
+
+.flex-title {
   display: flex;
 }
-.edit-title-btn{
+
+.edit-title-btn {
   width: 40%;
   margin-left: 20px;
-  svg{
+
+  svg {
     width: 20px;
     height: 20px;
   }
 }
+
+.document-container {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 60%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 1200px) {
+    max-width: 80%;
+  }
+
+  @media (max-width: 768px) {
+    max-width: 95%;
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+
+    @media (max-width: 768px) {
+      font-size: 20px; // Reducir el tamaño de la fuente para pantallas pequeñas
+    }
+  }
+
+  h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+
+    @media (max-width: 768px) {
+      font-size: 18px; // Reducir el tamaño de la fuente para pantallas pequeñas
+    }
+  }
+
+  p, ul {
+    margin-bottom: 20px;
+  }
+
+  table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+    overflow-x: auto;
+    display: block;
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 0.5em;
+
+      @media (max-width: 768px) {
+        padding: 0.2em; // Reducir el padding para pantallas pequeñas
+      }
+    }
+
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+
+      // Esto aplica si quieres que el primer th tenga un ancho específico
+      &:first-child {
+        width: 10%;
+      }
+    }
+
+    td:first-child {
+      width: 10%;
+      font-weight: bold;
+    }
+  }
+
+  ul {
+    list-style-type: disc;
+    padding-left: 20px;
+
+    @media (max-width: 768px) {
+      padding-left: 15px; // Reducir el padding para pantallas pequeñas
+    }
+  }
+}
+
