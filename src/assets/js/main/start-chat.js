@@ -1,7 +1,32 @@
 // Importación de la URL base de la API desde otro módulo
-import { urlBaseEndpoint } from './vars.js';
-import { showLoader } from './common.js';
-import { checkAuthToken } from './common.js';
+import {urlBaseEndpoint} from './vars.js';
+import {showLoader, removeAllOptions, checkAuthToken, updateTextareaWithSelectedOptions, hideLoader} from './common.js';
+import {
+    getListAreaOfKnowledgeRequest,
+    getListSubjectRequest,
+    getListGradeLevelRequest,
+    getListApproachRequest,
+    createClassRequest
+} from './api.js';
+
+let selectAreaOfKnowledge
+let selectSubject
+let selectGrade
+let selectApproach
+let inputSession
+let inputDuration
+let inputDurationUnit
+let textareaTheme
+let textareaObjective
+let textareaObjectiveSpecific
+let selectLocation
+let textareaLocation
+let selectMaterial
+let textareaMaterial
+let selectProvider
+let formNewClass
+let createClassButton
+
 
 // Se ejecuta cuando se carga el contenido del DOM
 document.addEventListener('DOMContentLoaded', initChatForm);
@@ -10,40 +35,162 @@ document.addEventListener('DOMContentLoaded', initChatForm);
  * Inicializa el formulario de chat y configura los manejadores de eventos.
  */
 function initChatForm() {
-    const form = document.getElementById('new_question_id');
-    const startChatButton = document.getElementById('start-chat-button');
-
-    // Agrega un manejador de eventos al botón de inicio de chat
-    startChatButton.addEventListener('click', () => submitForm(form));
-
-    // Agrega un manejador de eventos al formulario
-    form.addEventListener('submit', handleFormSubmit);
-
-    setupTemperatureRange();
+    getElements();
+    addEventListeners();
+    fetchAreaOfKnowledge();
+    fetchGradeLevel();
+    fetchApproach();
+    setupRangeInputs();
 }
 
-/**
- * Configura el rango de temperatura.
- */
-function setupTemperatureRange() {
-    const temperatureRange = document.getElementById('temperature');
-    const temperatureValue = document.getElementById('temperatureValue');
+function getElements() {
+    formNewClass = document.getElementById('formNewClassId');
+    createClassButton = document.getElementById('createClassButtonId');
+    selectAreaOfKnowledge = document.getElementById('selectAreaOfKnowledgeId');
+    selectSubject = document.getElementById('selectSubjectId');
+    selectGrade = document.getElementById('selectGradeId');
+    selectApproach = document.getElementById('selectApproachId');
+    inputDuration = document.getElementById('inputDurationId');
+    inputSession = document.getElementById('inputSessionId');
+    textareaTheme = document.getElementById('textareaThemeId');
+    textareaObjective = document.getElementById('textareaObjectiveId');
+    textareaObjectiveSpecific = document.getElementById('textareaObjectiveSpecificId');
+    textareaLocation = document.getElementById('textareaLocationId');
+    selectLocation = document.getElementById('selectLocationId');
+    textareaMaterial = document.getElementById('textareaMaterialId');
+    selectMaterial = document.getElementById('selectMaterialId');
+    inputDurationUnit = document.getElementById('inputDurationUnitId');
+    selectProvider = document.getElementById('selectProviderId');
+}
 
-    function updateTemperatureValue() {
-        temperatureValue.textContent = temperatureRange.value;
-    }
+function addEventListeners() {
+    selectAreaOfKnowledge.addEventListener('change', handleAreaOfKnowledgeChange);
+    selectLocation.addEventListener('change', function () {
+        updateTextareaWithSelectedOptions(selectLocation, textareaLocation);
+    });
+    selectMaterial.addEventListener('change', function () {
+        updateTextareaWithSelectedOptions(selectMaterial, textareaMaterial);
+    });
+    createClassButton.addEventListener('click', submitForm);
+    formNewClass.addEventListener('submit', handleFormSubmit);
+}
 
-    temperatureRange.addEventListener('input', updateTemperatureValue);
-    updateTemperatureValue();
-} 
+function handleAreaOfKnowledgeChange() {
+    const areaOfKnowledgeId = selectAreaOfKnowledge.value;
+    selectSubject.value = '';
+    console.log('Area de Conocimiento seleccionada:', areaOfKnowledgeId);
+    fetchSubject(areaOfKnowledgeId);
+}
+
+async function fetchAreaOfKnowledge() {
+    getListAreaOfKnowledgeRequest()
+        .then(data => {
+            console.log('Lista de Areas de Conocimientos obtenida correctamente:', data);
+            renderAreaOfKnowledge(data);
+        })
+        .catch(error => {
+            console.error('Error al obtener la lista de Areas de Conocimientos:', error.message);
+        });
+}
+
+async function fetchSubject(areaOfKnowledgeId) {
+    getListSubjectRequest(areaOfKnowledgeId)
+        .then(data => {
+            console.log('Lista de Asignaturas obtenidas correctamente:', data);
+            renderSubject(data);
+        })
+        .catch(error => {
+            console.error('Error al obtener la lista de Asignaturas:', error.message);
+        });
+}
+
+async function fetchGradeLevel() {
+    getListGradeLevelRequest()
+        .then(data => {
+            console.log('Lista de Grados obtenida correctamente:', data);
+            renderGradeLevel(data);
+        })
+        .catch(error => {
+            console.error('Error al obtener la lista de Grados:', error.message);
+        });
+}
+
+async function fetchApproach() {
+    getListApproachRequest()
+        .then(data => {
+            console.log('Lista de Enfoques obtenida correctamente:', data);
+            renderApproach(data);
+        })
+        .catch(error => {
+            console.error('Error al obtener la lista de Enfoques:', error.message);
+        });
+}
+
+function renderAreaOfKnowledge(data) {
+    const select = document.getElementById('selectAreaOfKnowledgeId');
+    data.results.forEach(area => {
+        const option = document.createElement('option');
+        option.value = area.id;
+        option.textContent = area.name;
+        select.appendChild(option);
+    });
+    fetchSubject();
+}
+
+function renderSubject(data) {
+    removeAllOptions(selectSubject)
+    data.results.forEach(area => {
+        const option = document.createElement('option');
+        option.value = area.id;
+        option.textContent = area.name;
+        selectSubject.appendChild(option);
+    });
+}
+
+function renderGradeLevel(data) {
+    removeAllOptions(selectGrade)
+    data.results.forEach(area => {
+        const option = document.createElement('option');
+        option.value = area.id;
+        option.textContent = area.name;
+        selectGrade.appendChild(option);
+    });
+}
+
+function renderApproach(data) {
+    removeAllOptions(selectApproach)
+    data.results.forEach(area => {
+        const option = document.createElement('option');
+        option.value = area.id;
+        option.textContent = area.name;
+        selectApproach.appendChild(option);
+    });
+
+}
+
+function setupRangeInputs() {
+    const rangeInputs = document.querySelectorAll('input[type="range"]');
+
+    rangeInputs.forEach(input => {
+        const inputId = input.id;
+        const label = document.querySelector(`label[for="${inputId}"]`);
+        const valueDisplay = label.querySelector('span');
+
+        function updateValueDisplay() {
+            valueDisplay.textContent = input.value;
+        }
+
+        input.addEventListener('input', updateValueDisplay);
+        updateValueDisplay();
+    });
+}
 
 
 /**
  * Envía el formulario de chat.
- * @param {HTMLFormElement} form - El formulario de chat.
  */
-function submitForm(form) {
-    form.dispatchEvent(new Event('submit', { cancelable: true }));
+function submitForm() {
+    formNewClass.dispatchEvent(new Event('submit', {cancelable: true}));
     showLoader();
 }
 
@@ -53,84 +200,32 @@ function submitForm(form) {
  */
 async function handleFormSubmit(e) {
     e.preventDefault();
-
-    // Verifica si el token de autenticación está disponible
-    const authToken = await checkAuthToken();
-
-    // Construye y envía la solicitud de chat
-    const payload = buildChatPayload();
-    sendChatRequest(payload, authToken);
+    let response = await createClassRequest(buildClassPayload());
+    console.log('Clase creada correctamente' + response);
+    hideLoader();
+    window.location.href = `chat.html?classId=${response.id}`;
 }
 
 /**
  * Construye el payload para la solicitud de chat.
  * @returns {Object} El payload para la solicitud.
  */
-function buildChatPayload() {
-    const repo = document.getElementById('repo').value;
-    const provider = document.getElementById('provider').value;
-    const model = document.getElementById('model').value;
-    const temperature = document.getElementById('temperature').value;
-    const text = document.getElementById('text').value;
-    const memoryChat = document.getElementById('new-chat-options-1').checked ? 'memory_chat' : 'qa';
-
+function buildClassPayload() {
     return {
-        text: text,
-        model_embeddings: "text-embedding-ada-002",
-        chat_type: memoryChat,
-        repo: repo,
-        model_chat: {
-            provider: provider,
-            model: model,
-            temperature: parseFloat(temperature)
-        }
-    };
-}
-
-/**
- * Envía la solicitud de chat a la API.
- * @param {Object} payload - El payload de la solicitud de chat.
- * @param {string} authToken - El token de autenticación.
- */
-function sendChatRequest(payload, authToken) {
-    fetch(urlBaseEndpoint + `api/v1/conversation/00000000-0000-0000-0000-000000000000/message/`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + authToken
-        },
-        body: JSON.stringify(payload)
-    })
-        .then(handleResponse)
-        .then(handleSuccess)
-        .catch(handleError);
-}
-
-/**
- * Maneja la respuesta de la API.
- * @param {Response} response - La respuesta de la API.
- * @returns {Promise<Object>} Promesa con los datos de la respuesta.
- */
-function handleResponse(response) {
-    if (!response.ok) {
-        throw new Error('Network response was not ok');
+        "disability_or_health_info": "",
+        "duration_amount": inputDuration.value,
+        "duration_unit": inputDurationUnit.value,
+        "is_active": true,
+        "location": textareaLocation.value,
+        "materials": textareaMaterial.value,
+        "name": textareaTheme.value,
+        "number_sessions": inputSession.value,
+        "object": textareaObjective.value,
+        "objects_specific": textareaObjectiveSpecific.value,
+        "approach_id": selectApproach.value,
+        "grade_level_id": selectGrade.value,
+        "subject_id": selectSubject.value,
+        "area_of_knowledge_id": selectAreaOfKnowledge.value,
+        "provider_ia": selectProvider.value
     }
-    return response.json();
-}
-
-/**
- * Maneja el éxito de la solicitud de chat.
- * @param {Object} data - Los datos de la respuesta.
- */
-function handleSuccess(data) {
-    const conversationId = data.conversation.conversation_id;
-    window.location.href = `/chat.html?conversationId=${conversationId}`;
-}
-
-/**
- * Maneja los errores en las solicitudes de la API.
- * @param {Error} error - El error ocurrido.
- */
-function handleError(error) {
-    console.error('Error:', error);
 }

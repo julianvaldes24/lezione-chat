@@ -1,17 +1,18 @@
 "use strict";
 
-const gulp         = require('gulp');
-const sass         = require('gulp-sass')(require('sass'));
+const gulp = require('gulp');
+const sass = require('gulp-sass')(require('sass'));
 const autoprefixer = require('gulp-autoprefixer');
-const sourcemaps   = require('gulp-sourcemaps');
-const cleancss     = require('gulp-clean-css');
-const rename       = require('gulp-rename');
-const rimraf       = require('rimraf');
-const fileinclude  = require('gulp-file-include');
-const webpack      = require('webpack-stream');
-const named        = require('vinyl-named');
-const browsersync  = require('browser-sync').create();
-const rtlcss       = require('gulp-rtlcss');
+const sourcemaps = require('gulp-sourcemaps');
+const cleancss = require('gulp-clean-css');
+const rename = require('gulp-rename');
+const rimraf = require('rimraf');
+const fileinclude = require('gulp-file-include');
+const webpack = require('webpack-stream');
+const named = require('vinyl-named');
+const browsersync = require('browser-sync').create();
+const rtlcss = require('gulp-rtlcss');
+const axios = require('axios');
 
 const paths = {
 
@@ -32,55 +33,55 @@ const paths = {
             dir: './dist/assets'
         },
         img: {
-            dir:    './dist/assets/img'
+            dir: './dist/assets/img'
         }
     },
     src: {
         base: {
-            dir:   './src/',
+            dir: './src/',
             files: './src/**/*.*'
         },
         html: {
             files: './src/**/*.html'
         },
         assets: {
-            dir:    './src/assets',
-            files:  '.src/assets/**/*'
+            dir: './src/assets',
+            files: '.src/assets/**/*'
         },
         partials: {
-            dir:   './src/partials',
+            dir: './src/partials',
             files: './src/partials/**/*'
         },
         scss: {
-            dir:    './src/assets/scss',
-            files:  './src/assets/scss/**/*',
-            main:   './src/assets/scss/*.scss'
+            dir: './src/assets/scss',
+            files: './src/assets/scss/**/*',
+            main: './src/assets/scss/*.scss'
         },
         js: {
-            dir:    './src/assets/js',
-            files:  './src/assets/js/**/*',
-            main:   './src/assets/js/template.js',
+            dir: './src/assets/js',
+            files: './src/assets/js/**/*',
+            main: './src/assets/js/template.js',
         },
         img: {
-            dir:    './src/assets/img',
-            files:  './src/assets/img/**/*.*'
+            dir: './src/assets/img',
+            files: './src/assets/img/**/*.*'
         },
         libraries: {
-            dir:    './src/assets/libraries',
-            files:  './src/assets/libraries/**/**'
+            dir: './src/assets/libraries',
+            files: './src/assets/libraries/**/**'
         },
         tmp: {
-            dir:    './src/.tmp',
+            dir: './src/.tmp',
             assets: './src/.tmp/assets',
-            js:     './src/.tmp/assets/js',
-            scss:   './src/.tmp/assets/css',
-            img:    './src/.tmp/assets/img'
+            js: './src/.tmp/assets/js',
+            scss: './src/.tmp/assets/css',
+            img: './src/.tmp/assets/img'
         }
     },
 
 };
 
-gulp.task('browsersync', function(callback) {
+gulp.task('browsersync', function (callback) {
     browsersync.init({
         server: {
             baseDir: paths.src.tmp.dir,
@@ -89,7 +90,7 @@ gulp.task('browsersync', function(callback) {
     callback();
 });
 
-gulp.task('browsersyncReload', function(callback) {
+gulp.task('browsersyncReload', function (callback) {
     browsersync.reload();
     callback();
 });
@@ -98,24 +99,24 @@ gulp.task('browsersyncReload', function(callback) {
 // Html
 //
 
-gulp.task('html', function(callback) {
+gulp.task('html', function (callback) {
     return gulp
-      .src([paths.src.html.files])
+        .src([paths.src.html.files])
         .pipe(fileinclude({
-            prefix:   '@@',
+            prefix: '@@',
             basepath: '@file',
-            indent:   true
+            indent: true
         }))
         .pipe(gulp.dest(paths.src.tmp.dir));
 });
 
-gulp.task('html:dist', function(callback) {
+gulp.task('html:dist', function (callback) {
     return gulp
-      .src([paths.src.html.files])
+        .src([paths.src.html.files])
         .pipe(fileinclude({
-            prefix:   '@@',
+            prefix: '@@',
             basepath: '@file',
-            indent:   true
+            indent: true
         }))
         .pipe(gulp.dest(paths.dist.base.dir))
 });
@@ -124,51 +125,57 @@ gulp.task('html:dist', function(callback) {
 // Javascript
 //
 
-gulp.task('javascript', function(callback) {
+gulp.task('javascript', function (callback) {
     return gulp
         .src([
             paths.src.js.main,
         ])
         .pipe(named())
         .pipe(webpack({
-            mode:    'production',
+            mode: 'production',
             devtool: 'source-map',
             optimization: {
                 splitChunks: {
-                  cacheGroups: {
-                    vendor: {
-                      test:   /[\\/](node_modules)[\\/].+\.js$/,
-                      name:   'vendor',
-                      chunks: 'all'
+                    cacheGroups: {
+                        vendor: {
+                            test: /[\\/](node_modules)[\\/].+\.js$/,
+                            name: 'vendor',
+                            chunks: 'all'
+                        }
                     }
-                  }
                 },
-            }
+            }/*,
+            externals: {
+                axios: 'axios' // Hace que axios sea accesible desde fuera del paquete de webpack
+            }*/
         }))
         .pipe(gulp.dest(paths.src.tmp.js));
     done();
 });
 
-gulp.task('javascript:dist', function(callback) {
+gulp.task('javascript:dist', function (callback) {
     return gulp
         .src([
             paths.src.js.main,
         ])
-      .pipe(named())
-      .pipe(webpack({
-        optimization: {
-            splitChunks: {
-              cacheGroups: {
-                vendor: {
-                  test:   /[\\/](node_modules)[\\/].+\.js$/,
-                  name:   'vendor',
-                  chunks: 'all'
-                }
-              }
-            },
-        }
-    }))
-      .pipe(gulp.dest(paths.dist.js.dir));
+        .pipe(named())
+        .pipe(webpack({
+            optimization: {
+                splitChunks: {
+                    cacheGroups: {
+                        vendor: {
+                            test: /[\\/](node_modules)[\\/].+\.js$/,
+                            name: 'vendor',
+                            chunks: 'all'
+                        }
+                    }
+                },
+            }/*,
+            externals: {
+                axios: 'axios' // Hace que axios sea accesible desde fuera del paquete de webpack
+            }*/
+        }))
+        .pipe(gulp.dest(paths.dist.js.dir));
     done();
 });
 
@@ -176,40 +183,40 @@ gulp.task('javascript:dist', function(callback) {
 // Styles
 //
 
-gulp.task('scss', function() {
+gulp.task('scss', function () {
     return gulp
         .src(paths.src.scss.main)
-            .pipe(sourcemaps.init())
-            .pipe(sass()
-                .on('error', sass.logError))
-            .pipe(autoprefixer({
-                overrideBrowserslist: ['last 2 versions']
-            }))
-            .pipe(rename({suffix: '.bundle'}))
-            .pipe(sourcemaps.write('.'))
-            .pipe(gulp.dest(paths.src.tmp.scss))
-            .pipe(browsersync.stream());
+        .pipe(sourcemaps.init())
+        .pipe(sass()
+            .on('error', sass.logError))
+        .pipe(autoprefixer({
+            overrideBrowserslist: ['last 2 versions']
+        }))
+        .pipe(rename({suffix: '.bundle'}))
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest(paths.src.tmp.scss))
+        .pipe(browsersync.stream());
 });
 
-gulp.task('scss:dist', function() {
+gulp.task('scss:dist', function () {
     return gulp
         .src(paths.src.scss.main)
-            .pipe(sass()
-                .on('error', sass.logError))
-            .pipe(autoprefixer({
-                overrideBrowserslist: ['last 2 versions']
-            }))
-            .pipe(cleancss({level: {1: {specialComments: 0}}}))
-            .pipe(rename({suffix: '.bundle'}))
-            .pipe(gulp.dest(paths.dist.scss.dir))
-            .pipe(browsersync.stream());
+        .pipe(sass()
+            .on('error', sass.logError))
+        .pipe(autoprefixer({
+            overrideBrowserslist: ['last 2 versions']
+        }))
+        .pipe(cleancss({level: {1: {specialComments: 0}}}))
+        .pipe(rename({suffix: '.bundle'}))
+        .pipe(gulp.dest(paths.dist.scss.dir))
+        .pipe(browsersync.stream());
 });
 
 //
 // Copy assets(fonts, images and etc)
 //
 
-gulp.task('copy:assets', function() {
+gulp.task('copy:assets', function () {
     return gulp
         .src([
             paths.src.base.files,
@@ -226,7 +233,7 @@ gulp.task('copy:assets', function() {
         .pipe(gulp.dest(paths.src.tmp.dir));
 });
 
-gulp.task('copy:assets:dist', function() {
+gulp.task('copy:assets:dist', function () {
     return gulp
         .src([
             paths.src.base.files,
@@ -263,7 +270,7 @@ gulp.task('clean:dist', function (cb) {
 // Watch
 //
 
-gulp.task('watch', function() {
+gulp.task('watch', function () {
     gulp.watch([paths.src.scss.files], gulp.series('scss'));
     gulp.watch([paths.src.js.files], gulp.series('javascript', 'browsersyncReload'));
     gulp.watch([paths.src.img.files], gulp.series('copy:assets', 'browsersyncReload'));
@@ -274,5 +281,5 @@ gulp.task('watch', function() {
 // Tasks
 //
 
-gulp.task('build',   gulp.series(gulp.parallel('clean:dist'), gulp.parallel('scss:dist', 'html:dist', 'javascript:dist', 'copy:assets:dist')));
+gulp.task('build', gulp.series(gulp.parallel('clean:dist'), gulp.parallel('scss:dist', 'html:dist', 'javascript:dist', 'copy:assets:dist')));
 gulp.task('default', gulp.series(gulp.parallel('clean:tmp'), gulp.parallel('html', 'scss', 'javascript', 'copy:assets'), gulp.parallel('browsersync', 'watch')));
